@@ -1,12 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/header/Header';
-import SubHeader from './components/header/SubHeader';
+import Header from './containers/Head';
 
 const App = () => {
   return (
     <Router>
       <Header />
-      <SubHeader />
     </Router>
   );
 }

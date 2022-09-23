@@ -42,7 +42,7 @@ const SubHeader = () => {
     <SubHeadBlock>
       <SubContentsBlock>
         <nav>
-          <NavLinkStyle to="/store/store" className={({isActive}) => (isActive && "active")}>스토어홈</NavLinkStyle>
+          <NavLinkStyle to="/store" className={({isActive}) => (isActive && "active")}>스토어홈</NavLinkStyle>
           <NavLinkStyle to="/store/category" className={({isActive}) => (isActive && "active")}>카테고리</NavLinkStyle>
           <NavLinkStyle to="/store/rank" className={({isActive}) => (isActive && "active")}>베스트</NavLinkStyle>
           <NavLinkStyle to="/store/deal" className={({isActive}) => (isActive && "active")}>오늘의딜</NavLinkStyle>

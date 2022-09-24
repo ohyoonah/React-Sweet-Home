@@ -6,6 +6,9 @@ const HeaderBlock = styled.div`
   background: white;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const Header = () => {

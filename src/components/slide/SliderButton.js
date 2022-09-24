@@ -36,7 +36,7 @@ const SliderButton = () => {
       <SliderUl>
         {imagesData.map
           (({id, name}) => {
-            return <SliderLi>{name}</SliderLi>
+            return <SliderLi key={id}>{name}</SliderLi>
           })}
       </SliderUl>
     </SliderButtonBlock>

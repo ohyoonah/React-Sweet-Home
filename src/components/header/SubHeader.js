@@ -1,11 +1,14 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import CategoryHover from './CategoryHover';
 
 const SubHeadBlock = styled.div`
   width: 100%;
   border-bottom: 1px solid var(--light-gray);  
   padding: 0 3rem;
   background: white;
+  position: relative;
 `;
 
 const SubContentsBlock = styled.div`
@@ -38,12 +41,20 @@ const NavLinkStyle = styled(NavLink)`
 `;
 
 const SubHeader = () => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <SubHeadBlock>
       <SubContentsBlock>
         <nav>
           <NavLinkStyle to="/store" className={({isActive}) => (isActive && "active")}>스토어홈</NavLinkStyle>
-          <NavLinkStyle to="/store/category" className={({isActive}) => (isActive && "active")}>카테고리</NavLinkStyle>
+          <NavLinkStyle 
+            to="/store/category" 
+            className={({isActive}) => (isActive && "active")} 
+            onMouseOver={() => setVisible(true)}
+            onMouseOut={() => setVisible(false)}
+          >카테고리
+          </NavLinkStyle>
           <NavLinkStyle to="/store/rank" className={({isActive}) => (isActive && "active")}>베스트</NavLinkStyle>
           <NavLinkStyle to="/store/deal" className={({isActive}) => (isActive && "active")}>오늘의딜</NavLinkStyle>
           <NavLinkStyle to="/store/sale" className={({isActive}) => (isActive && "active")}>리빙빅세일</NavLinkStyle>
@@ -53,6 +64,7 @@ const SubHeader = () => {
           <NavLinkStyle to="/store/premium" className={({isActive}) => (isActive && "active")}>프리미엄</NavLinkStyle>
           <NavLinkStyle to="/store/showroom" className={({isActive}) => (isActive && "active")}>기획전</NavLinkStyle>
         </nav>
+        {visible && <CategoryHover />}
       </SubContentsBlock>
     </SubHeadBlock>
   )

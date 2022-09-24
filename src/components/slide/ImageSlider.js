@@ -6,6 +6,7 @@ import {imagesData} from "./imagesData";
 
 const SliderBlock = styled(Slider)`
   text-align: center;
+  overflow-x: hidden;
   .slick-dots {
     position: absolute;
     bottom: 2rem;
@@ -15,6 +16,7 @@ const SliderBlock = styled(Slider)`
 
 const ImageBlock = styled.img`
   height: 380px;
+  object-fit: cover;
   max-width: 1918px;
 `
 

@@ -81,6 +81,9 @@ const HeaderContentsBlock = styled.div`
     color: white;
     font-size: 1rem;
     font-weight: bold;
+    &:hover {
+      background: var(--dark-blue);
+    }
   }
 `;
 

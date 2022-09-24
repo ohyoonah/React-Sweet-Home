@@ -1,18 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Category from './containers/Category';
-import Header from './containers/Head';
-import Product from './containers/Product';
-import Slider from './containers/Slider';
-import Store from './containers/Store';
+import Main from './containers/Main';
+import Login from './containers/Login';
 
 const App = () => {
   return (
     <Router>
-      <Header />
-      <Slider />
-      <Store />
-      <Product />
-      <Category />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </Router>
   );
 }

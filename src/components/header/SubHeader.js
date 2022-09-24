@@ -6,7 +6,7 @@ import CategoryHover from './CategoryHover';
 const SubHeadBlock = styled.div`
   width: 100%;
   border-bottom: 1px solid var(--light-gray);  
-  padding: 0 3rem;
+  padding: 0 4rem;
   background: white;
   position: relative;
 `;
@@ -24,7 +24,7 @@ const SubContentsBlock = styled.div`
 `;
 
 const NavLinkStyle = styled(NavLink)`
-  margin-right: 1rem;
+  margin-right: 0.8rem;
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: -1px;
@@ -37,6 +37,17 @@ const NavLinkStyle = styled(NavLink)`
   }
   &:hover {
     color: var(--blue);
+  }
+  span {
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-left: 3px;
   }
 `;
 
@@ -57,11 +68,23 @@ const SubHeader = () => {
           </NavLinkStyle>
           <NavLinkStyle to="/store/rank" className={({isActive}) => (isActive && "active")}>베스트</NavLinkStyle>
           <NavLinkStyle to="/store/deal" className={({isActive}) => (isActive && "active")}>오늘의딜</NavLinkStyle>
-          <NavLinkStyle to="/store/sale" className={({isActive}) => (isActive && "active")}>리빙빅세일</NavLinkStyle>
-          <NavLinkStyle to="/store/special" className={({isActive}) => (isActive && "active")}>주말반짝특가</NavLinkStyle>
-          <NavLinkStyle to="/store/goods" className={({isActive}) => (isActive && "active")}>오!굿즈</NavLinkStyle>
+          <NavLinkStyle to="/store/sale" className={({isActive}) => (isActive && "active")}>
+            리빙빅세일
+            <span>N</span>
+          </NavLinkStyle>
+          <NavLinkStyle to="/store/special" className={({isActive}) => (isActive && "active")}>
+            주말반짝특가
+            <span>N</span>
+          </NavLinkStyle>
+          <NavLinkStyle to="/store/goods" className={({isActive}) => (isActive && "active")}>
+            오!굿즈
+            <span>N</span>
+          </NavLinkStyle>
           <NavLinkStyle to="/store/quick" className={({isActive}) => (isActive && "active")}>빠른배송</NavLinkStyle>
-          <NavLinkStyle to="/store/premium" className={({isActive}) => (isActive && "active")}>프리미엄</NavLinkStyle>
+          <NavLinkStyle to="/store/premium" className={({isActive}) => (isActive && "active")}>
+            프리미엄
+            <span>N</span>
+          </NavLinkStyle>
           <NavLinkStyle to="/store/showroom" className={({isActive}) => (isActive && "active")}>기획전</NavLinkStyle>
         </nav>
         {visible && <CategoryHover />}

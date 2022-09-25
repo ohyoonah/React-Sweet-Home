@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 
 const LoginFormBlock = styled.form`
   width: 300px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   display: flex;
   flex-direction: column;
   letter-spacing: -1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%, -50%);
 
   p {
     text-align: center;
@@ -27,7 +31,7 @@ const LogoBlock = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
   img {
     width: 50px;
     border-radius: 8px;

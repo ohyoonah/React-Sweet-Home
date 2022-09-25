@@ -107,7 +107,7 @@ const MainHeader = () => {
         <Link to="/" className="logo">오늘의집</Link>
         <nav>
           <NavLinkStyle to="/community" className={({isActive}) => (isActive && "active")}>커뮤니티</NavLinkStyle>
-          <NavLinkStyle to="/store" className={({isActive}) => (isActive && "active")}>스토어</NavLinkStyle>
+          <NavLinkStyle to="/" className={({isActive}) => (isActive && "active")}>스토어</NavLinkStyle>
           <NavLinkStyle to="/experts" className={({isActive}) => (isActive && "active")}>이사/시공/수리</NavLinkStyle>
         </nav>
         <div className='search'>

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import CategoryHover from './CategoryHover';
 
@@ -9,6 +9,10 @@ const SubHeadBlock = styled.div`
   padding: 0 4rem;
   background: white;
   position: relative;
+  ${props =>
+    props.moveScroll && `
+      display: none;
+  `}
 `;
 
 const SubContentsBlock = styled.div`
@@ -53,12 +57,25 @@ const NavLinkStyle = styled(NavLink)`
 
 const SubHeader = () => {
   const [visible, setVisible] = useState(false);
+  const [moveScroll, setMoveScroll] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener('wheel', handleScroll);
+  }, []);
+
+  const handleScroll = (e) => {
+    if(e.deltaY > 0) {
+      setMoveScroll(true);
+    } else {
+      setMoveScroll(false);
+    }
+  };
+  
   return (
-    <SubHeadBlock>
+    <SubHeadBlock moveScroll={moveScroll}>
       <SubContentsBlock>
         <nav>
-          <NavLinkStyle to="/store" className={({isActive}) => (isActive && "active")}>스토어홈</NavLinkStyle>
+          <NavLinkStyle to="/" className={({isActive}) => (isActive && "active")}>스토어홈</NavLinkStyle>
           <NavLinkStyle 
             to="/store/category" 
             className={({isActive}) => (isActive && "active")} 

@@ -1,42 +1,56 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
-import axios from 'axios';
 import DealItem from './DealItem';
+import { dealData } from "./dealData";
 
 const TodayDealBlock = styled.div`
-  background-color: yellow;
   max-width: 1440px;
   margin: 0 auto;
+  margin-bottom: 5rem;
   padding: 0 8rem;
-  h2 {
-    padding: 1rem 0;
-  }
-`
-
-const TodayDeal = () => {
-  const [deals, setDeals] = useState(null);
-
-  const fetchData = async () => {
-    try {
-      const res = await axios.get('https://ohou.se/store.json?v=5&wedding=true');
-      setDeals(res.data.today_deals)
-      console.log(res.data.today_deals)
-    } catch(e) {
-      console.log(e);
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      color: var(--red);
+      margin-right: 2rem;
+      cursor: pointer;
+      &:hover {
+        color: var(--light-red);
+      }
     }
   }
+  .items {
+    display: flex;
+  }
+`;
 
-  useEffect(() => {
-    fetchData();
-  }, [])
+const TodayDeal = () => {
+  const [mark, setMark] = useState(dealData);
+
+  const onToggle = (id) => {
+    setMark(mark.map((data) => (
+      data.id === id ? 
+      { ...data, check: !data.check} : data
+    )));
+  }
 
   return (
     <TodayDealBlock>
-      <h2>오늘의딜</h2>
-      {/* <DealItem deal={deals}/> */}
-      {/* {deals.map((deal) => {
-        return <DealItem key={deal.production.id} deal={deal}/>
-      })} */}
+      <div className='title'>
+        <h2>오늘의딜</h2>
+        <span>더보기</span>
+      </div>
+      <div className='items'>
+        {mark.map((data) => (
+          <DealItem
+            key={data.id}
+            data={data}
+            onToggle={onToggle}
+          />
+        ))}
+      </div>
     </TodayDealBlock>
   );
 };

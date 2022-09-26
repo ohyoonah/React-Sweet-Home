@@ -12,6 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   min-height: 100%;
+  color: var(--black);
 }
 
 #root {
@@ -29,7 +30,6 @@ a {
 
 * {
   box-sizing: inherit;
-  color: var(--black);
 }
 
 :root {
@@ -41,4 +41,5 @@ a {
   --black: #212629;
   --light-black: #2F3438;
   --red: #ff7777;
+  --light-red: #ff9d9d;
 }

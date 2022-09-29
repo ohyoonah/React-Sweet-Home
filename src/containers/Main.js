@@ -13,7 +13,7 @@ const Main = () => {
       <Product />
       <Category />
     </>
-  )
-}
+  );
+};
 
 export default Main;

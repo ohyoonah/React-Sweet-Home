@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { categoryData } from "../categories/categoryData";
+import { useState, useEffect } from "react";
+import { db } from "../../Firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const CategoryBlock = styled.div`
   background: white;
@@ -32,23 +34,36 @@ const ButtonItemBlock = styled.div`
   img {
     margin-bottom: 10px;
   }
-`
+`;
 
 const CategoryHover = () => {
+  const [category, setCategory] = useState([]);
+  const collectionRef = collection(db, "category");
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getDocs(collectionRef);
+      setCategory(data.docs.map((doc) => ({ ...doc.data() })));
+    };
+    getData();
+  }, [collectionRef]);
+
   return (
     <CategoryBlock>
       <ButtonBlock>
-        {categoryData.map(({id, name, image}) => {
-          return (
-            <ButtonItemBlock key={id}>
-              <img src={image} alt={image} />
-              <span>{name}</span>
-            </ButtonItemBlock>
-          )
-        })}
+        {category
+          .sort((a, b) => a.id - b.id)
+          .map((data) => {
+            return (
+              <ButtonItemBlock key={data.id}>
+                <img src={data.image} alt={data.image} />
+                <span>{data.name}</span>
+              </ButtonItemBlock>
+            );
+          })}
       </ButtonBlock>
     </CategoryBlock>
-  )
-}
+  );
+};
 
 export default CategoryHover;

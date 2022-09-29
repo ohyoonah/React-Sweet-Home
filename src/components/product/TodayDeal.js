@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import DealItem from './DealItem';
-import { dealData } from "./dealData";
+import DealItem from "./DealItem";
+import { db } from "../../Firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const TodayDealBlock = styled.div`
   max-width: 1440px;
@@ -27,29 +28,37 @@ const TodayDealBlock = styled.div`
 `;
 
 const TodayDeal = () => {
-  const [mark, setMark] = useState(dealData);
+  const [deal, setDeal] = useState([]);
+  const dealRef = collection(db, "today_deal");
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getDocs(dealRef);
+      setDeal(data.docs.map((doc) => ({ ...doc.data() })));
+    };
+    getData();
+  }, [dealRef]);
 
   const onToggle = (id) => {
-    setMark(mark.map((data) => (
-      data.id === id ? 
-      { ...data, check: !data.check} : data
-    )));
-  }
+    setDeal(
+      deal.map((data) =>
+        data.id === id ? { ...data, check: !data.check } : data
+      )
+    );
+  };
 
   return (
     <TodayDealBlock>
-      <div className='title'>
+      <div className="title">
         <h2>오늘의딜</h2>
         <span>더보기</span>
       </div>
-      <div className='items'>
-        {mark.map((data) => (
-          <DealItem
-            key={data.id}
-            data={data}
-            onToggle={onToggle}
-          />
-        ))}
+      <div className="items">
+        {deal
+          .sort((a, b) => a.id - b.id)
+          .map((data) => (
+            <DealItem key={data.id} data={data} onToggle={onToggle} />
+          ))}
       </div>
     </TodayDealBlock>
   );

@@ -27,7 +27,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://ohyoonah.github.io/React-Sweet-Home",
+  "homepage": "https://ohyoonah.github.io/React-Sweet-Home/",
   "eslintConfig": {
     "extends": [
       "react-app",

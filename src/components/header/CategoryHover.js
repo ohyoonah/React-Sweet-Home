@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { db } from "../../Firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { categoryData } from "../categories/categoryData";
 
 const CategoryBlock = styled.div`
   background: white;
@@ -18,7 +19,7 @@ const ButtonBlock = styled.div`
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
-  /* overflow-x: scroll; */
+  overflow-x: auto;
 `;
 
 const ButtonItemBlock = styled.div`
@@ -36,31 +37,48 @@ const ButtonItemBlock = styled.div`
   }
 `;
 
+// const CategoryHover = () => {
+//   const [category, setCategory] = useState([]);
+//   const collectionRef = collection(db, "category");
+
+//   useEffect(() => {
+//     const getData = async () => {
+//       const data = await getDocs(collectionRef);
+//       setCategory(data.docs.map((doc) => ({ ...doc.data() })));
+//     };
+//     getData();
+//   }, [collectionRef]);
+
+//   return (
+//     <CategoryBlock>
+//       <ButtonBlock>
+//         {category
+//           .sort((a, b) => a.id - b.id)
+//           .map((data) => {
+//             return (
+//               <ButtonItemBlock key={data.id}>
+//                 <img src={data.image} alt={data.image} />
+//                 <span>{data.name}</span>
+//               </ButtonItemBlock>
+//             );
+//           })}
+//       </ButtonBlock>
+//     </CategoryBlock>
+//   );
+// };
+
 const CategoryHover = () => {
-  const [category, setCategory] = useState([]);
-  const collectionRef = collection(db, "category");
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getDocs(collectionRef);
-      setCategory(data.docs.map((doc) => ({ ...doc.data() })));
-    };
-    getData();
-  }, [collectionRef]);
-
   return (
     <CategoryBlock>
       <ButtonBlock>
-        {category
-          .sort((a, b) => a.id - b.id)
-          .map((data) => {
-            return (
-              <ButtonItemBlock key={data.id}>
-                <img src={data.image} alt={data.image} />
-                <span>{data.name}</span>
-              </ButtonItemBlock>
-            );
-          })}
+        {categoryData.map(({ id, name, image }) => {
+          return (
+            <ButtonItemBlock key={id}>
+              <img src={image} alt={image} />
+              <span>{name}</span>
+            </ButtonItemBlock>
+          );
+        })}
       </ButtonBlock>
     </CategoryBlock>
   );

@@ -4,7 +4,10 @@ import { imagesData } from "./imagesData";
 const SliderButtonBlock = styled.div`
   padding: 0 13rem;
   background: white;
-`
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
+`;
 
 const SliderUl = styled.ul`
   height: 40px;
@@ -24,7 +27,6 @@ const SliderLi = styled.li`
   text-align: center;
   line-height: 40px;
   padding-right: 1rem;
-  /* flex: 1; */
   &:not(:last-child) {
     border-right: 1px solid var(--middle-gray);
   }
@@ -34,13 +36,12 @@ const SliderButton = () => {
   return (
     <SliderButtonBlock>
       <SliderUl>
-        {imagesData.map
-          (({id, name}) => {
-            return <SliderLi key={id}>{name}</SliderLi>
-          })}
+        {imagesData.map(({ id, name }) => {
+          return <SliderLi key={id}>{name}</SliderLi>;
+        })}
       </SliderUl>
     </SliderButtonBlock>
-  )
+  );
 };
 
 export default SliderButton;

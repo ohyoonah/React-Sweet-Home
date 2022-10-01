@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Slider from "react-slick";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css'
-import {imagesData} from "./imagesData";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { imagesData } from "./imagesData";
 
 const SliderBlock = styled(Slider)`
   text-align: center;
@@ -11,14 +11,20 @@ const SliderBlock = styled(Slider)`
     position: absolute;
     bottom: 2rem;
     color: white;
+    @media only screen and (max-width: 1024px) {
+      bottom: 1rem;
+    }
   }
-`
+`;
 
 const ImageBlock = styled.img`
   height: 380px;
   object-fit: cover;
   max-width: 1918px;
-`
+  @media only screen and (max-width: 1024px) {
+    height: 270px;
+  }
+`;
 
 const ImageSlider = () => {
   const settings = {
@@ -33,12 +39,12 @@ const ImageSlider = () => {
   return (
     <div>
       <SliderBlock {...settings}>
-        {imagesData.map(({id, name, image}) =>
+        {imagesData.map(({ id, name, image }) => (
           <ImageBlock key={id} src={image} alt={name} />
-        )}
+        ))}
       </SliderBlock>
     </div>
   );
-}
+};
 
 export default ImageSlider;

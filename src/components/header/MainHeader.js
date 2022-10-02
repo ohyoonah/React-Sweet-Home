@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { MdSearch } from "react-icons/md";
 import { BsCart } from "react-icons/bs";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const MainHeadBlock = styled.div`
   width: 100%;
@@ -19,6 +21,11 @@ const HeaderContentsBlock = styled.div`
   justify-content: space-between;
   background: white;
   margin: 0 auto;
+
+  .menu-icon {
+    display: none;
+    font-size: 1.5rem;
+  }
 
   .logo {
     font-size: 1.6rem;
@@ -124,6 +131,33 @@ const HeaderContentsBlock = styled.div`
       }
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 1rem;
+    height: 50px;
+    justify-content: space-between;
+    text-align: center;
+    .menu-icon {
+      display: block;
+      cursor: pointer;
+    }
+    .logo {
+      flex: 1;
+      margin: 0;
+    }
+    nav {
+      display: none;
+    }
+    .button-block {
+      flex: none;
+      .cart {
+        margin: 0;
+      }
+      .buttons {
+        display: none;
+      }
+    }
+  }
 `;
 
 const NavLinkStyle = styled(NavLink)`
@@ -139,10 +173,11 @@ const NavLinkStyle = styled(NavLink)`
   }
 `;
 
-const MainHeader = () => {
+const MainHeader = ({ menuClick }) => {
   return (
     <MainHeadBlock>
       <HeaderContentsBlock>
+        <AiOutlineMenu className="menu-icon" onClick={() => menuClick()} />
         <Link to="/" className="logo">
           오늘의집
         </Link>

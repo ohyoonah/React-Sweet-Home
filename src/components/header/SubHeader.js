@@ -10,6 +10,7 @@ const SubHeadBlock = styled.div`
   overflow-x: auto;
   white-space: nowrap;
   ${(props) => props.moveScroll && `display: none;`}
+  ${(props) => props.menuOpen && `display: fixed;`}
 `;
 
 const SubContentsBlock = styled.div`
@@ -24,6 +25,10 @@ const SubContentsBlock = styled.div`
   margin: 0 auto;
   @media only screen and (max-width: 1256px) {
     padding: 0 3rem;
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 0 1rem;
+    height: 40px;
   }
 `;
 
@@ -53,9 +58,13 @@ const NavLinkStyle = styled(NavLink)`
     text-align: center;
     margin-left: 3px;
   }
+  @media only screen and (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
+  }
 `;
 
-const SubHeader = () => {
+const SubHeader = ({ menuOpen }) => {
   const [visible, setVisible] = useState(false);
   const [moveScroll, setMoveScroll] = useState(false);
 
@@ -72,7 +81,7 @@ const SubHeader = () => {
   };
 
   return (
-    <SubHeadBlock moveScroll={moveScroll}>
+    <SubHeadBlock moveScroll={moveScroll} menuOpen={menuOpen}>
       <SubContentsBlock>
         <nav>
           <NavLinkStyle

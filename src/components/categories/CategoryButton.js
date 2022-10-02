@@ -6,18 +6,29 @@ import { categoryData } from "./categoryData";
 
 const CategoryBlock = styled.div`
   background: white;
-  margin: 0 auto;
-  padding: 0 4rem;
-  max-width: 1256px;
 `;
 
 const CategoryButtonBlock = styled.div`
-  .body {
-    display: flex;
+  max-width: 1256px;
+  margin: 0 auto;
+  h2 {
+    padding: 0 4rem;
+    letter-spacing: -2px;
+    font-size: 1.3rem;
+    @media only screen and (max-width: 768px) {
+      padding: 0 1rem;
+    }
   }
-  @media only screen and (max-width: 1024px) {
-    padding: 0;
-    width: 100%;
+  .body {
+    padding: 0 4rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @media only screen and (max-width: 1024px) {
+      padding: 0;
+      width: 100%;
+      justify-content: start;
+    }
   }
 `;
 
@@ -26,6 +37,8 @@ const ButtonItemBlock = styled.div`
   flex-direction: column;
   text-align: center;
   width: 90px;
+  height: 100px;
+  font-weight: 700;
   img {
     margin-bottom: 10px;
     cursor: pointer;
@@ -33,6 +46,22 @@ const ButtonItemBlock = styled.div`
   @media only screen and (max-width: 1024px) {
     border: 1px solid var(--light-gray);
     padding: 1rem;
+    width: 20%;
+    height: 100%;
+    img {
+      width: 50%;
+      margin: 0 auto;
+      padding: 1rem 0;
+    }
+    span {
+      margin-bottom: 0.5rem;
+    }
+
+    @media only screen and (max-width: 768px) {
+      width: 25%;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+    }
   }
 `;
 

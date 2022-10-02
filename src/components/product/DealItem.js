@@ -2,14 +2,9 @@ import styled from "styled-components";
 import { BsBookmarkFill } from "react-icons/bs";
 
 const ItemBlock = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 25%;
   padding: 1rem 0.5rem;
   cursor: pointer;
-  @media only screen and (max-width: 1024px) {
-    width: 33%;
-  }
   span {
     color: var(--gray);
   }
@@ -67,6 +62,25 @@ const ItemBlock = styled.div`
     .review_count {
       font-size: 0.8rem;
       font-weight: 600;
+    }
+  }
+  @media only screen and (max-width: 1024px) {
+    width: 33%;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .image {
+      width: 45%;
+      height: 300px;
+    }
+    .body {
+      width: 55%;
     }
   }
 `;

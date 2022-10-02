@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import MainHeader from '../components/header/MainHeader';
-import SubHeader from '../components/header/SubHeader';
+import styled from "styled-components";
+import MainHeader from "../components/header/MainHeader";
+import SubHeader from "../components/header/SubHeader";
 
 const HeaderBlock = styled.div`
   background: white;
@@ -11,13 +11,13 @@ const HeaderBlock = styled.div`
   z-index: 1;
 `;
 
-const Header = () => {
+const Header = ({ menuClick, menuOpen }) => {
   return (
     <HeaderBlock>
-      <MainHeader />
-      <SubHeader />
+      <MainHeader menuClick={menuClick} />
+      <SubHeader menuOpen={menuOpen} />
     </HeaderBlock>
-  )
-}
+  );
+};
 
 export default Header;

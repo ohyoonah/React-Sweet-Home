@@ -24,6 +24,9 @@ const ImageBlock = styled.img`
   @media only screen and (max-width: 1024px) {
     height: 270px;
   }
+  @media only screen and (max-width: 768px) {
+    height: 440px;
+  }
 `;
 
 const ImageSlider = () => {

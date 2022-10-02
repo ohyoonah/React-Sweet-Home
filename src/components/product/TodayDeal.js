@@ -33,8 +33,25 @@ const TodayDealBlock = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
   }
+  .deal-button {
+    display: none;
+  }
   @media only screen and (max-width: 1256px) {
     padding: 0 3rem;
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 0 1rem;
+    .deal-button {
+      display: block;
+      width: 100%;
+      height: 50px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gray);
+      border-radius: 5px;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -97,6 +114,7 @@ const TodayDeal = () => {
           <DealItem key={data.id} data={data} onToggle={onToggle} />
         ))}
       </div>
+      <button className="deal-button">오늘의딜 더보기{">"}</button>
     </TodayDealBlock>
   );
 };

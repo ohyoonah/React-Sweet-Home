@@ -9,6 +9,10 @@ const StoreBlock = styled.div`
   @media only screen and (max-width: 1256px) {
     padding: 1rem 3rem;
   }
+  @media only screen and (max-width: 768px) {
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
 `;
 
 const StoreButtonBlock = styled.div`
@@ -17,6 +21,9 @@ const StoreButtonBlock = styled.div`
   overflow-x: auto;
   flex-wrap: nowrap;
   padding: 1rem 0;
+  @media only screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const ButtonItemBlock = styled.div`
@@ -37,10 +44,22 @@ const ButtonItemBlock = styled.div`
     width: 40px;
     height: 23px;
     line-height: 23px;
-    font-size: 12px;
+    font-size: 1rem;
     position: absolute;
     top: -6px;
     right: -10px;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 20%;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    img {
+      border-radius: 32px;
+    }
+    .hot {
+      top: 0;
+      right: 0;
+    }
   }
 `;
 

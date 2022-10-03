@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { RiHome2Line, RiStoreLine, RiTruckLine } from "react-icons/ri";
+import SideItem from "./SideItem";
 
 const SideMenuBlock = styled.div`
   display: none;
@@ -59,28 +60,13 @@ const SideMenuBlock = styled.div`
   }
   .nav-section {
     width: 100%;
-    padding: 1rem 0;
-    margin-top: 0.5rem;
+    padding: 1rem;
     border-bottom: 1px solid var(--light-gray);
-    button {
-      background: transparent;
-      border: none;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 0.5rem 0;
-      cursor: pointer;
-    }
-    ul {
-      /* display: none; */
-      ${(props) => (props.visible ? `display: flex` : `display: none`)}
-    }
-    li {
-      margin-bottom: 1.3rem;
-      font-size: 0.9rem;
-    }
   }
+
   .main-section {
     width: 100%;
+    padding: 0 1rem;
     border-bottom: 1px solid var(--light-gray);
     ul {
       padding: 0.5rem;
@@ -94,6 +80,7 @@ const SideMenuBlock = styled.div`
   }
   .bottom-section {
     width: 100%;
+    padding: 0 1rem;
     padding-top: 1.5rem;
     span {
       margin-right: 1rem;
@@ -103,9 +90,53 @@ const SideMenuBlock = styled.div`
   ${(props) => props.menuOpen && `display: flex`}
 `;
 
-const SideMenu = ({ menuOpen }) => {
-  const [visible, setVisible] = useState(false);
+const data = [
+  {
+    title: "커뮤니티",
+    icon: <RiHome2Line />,
+    list: [
+      { title: "홈" },
+      { title: "팔로잉" },
+      { title: "사진" },
+      { title: "집들이" },
+      { title: "노하우" },
+      { title: "전문가집들이" },
+      { title: "셀프가이드" },
+      { title: "질문과답변" },
+      { title: "3D인테리어" },
+      { title: "이벤트" },
+    ],
+  },
+  {
+    title: "스토어",
+    icon: <RiStoreLine />,
+    list: [
+      { title: "스토어홈" },
+      { title: "카테고리" },
+      { title: "베스트" },
+      { title: "오늘의딜" },
+      { title: "취향발견" },
+      { title: "연휴반짝세일" },
+      { title: "오!굿즈" },
+      { title: "빠른배송" },
+      { title: "프리미엄" },
+      { title: "기획전" },
+    ],
+  },
+  {
+    title: "이사/시공/수리",
+    icon: <RiTruckLine />,
+    list: [
+      { title: "홈" },
+      { title: "인테리어시공" },
+      { title: "이사" },
+      { title: "설치수리" },
+      { title: "우리동네아파트" },
+    ],
+  },
+];
 
+const SideMenu = ({ menuOpen }) => {
   return (
     <SideMenuBlock menuOpen={menuOpen}>
       <div className="top-section">
@@ -121,48 +152,9 @@ const SideMenu = ({ menuOpen }) => {
         </div>
       </div>
       <div className="nav-section">
-        <div className="main-button">
-          <button onClick={() => setVisible(!visible)}>
-            {visible ? "커뮤니티 down" : "커뮤니티 up"}
-          </button>
-          <ul visible={visible}>
-            <li>홈</li>
-            <li>팔로잉</li>
-            <li>사진</li>
-            <li>집들이</li>
-            <li>노하우</li>
-            <li>전문가집들이</li>
-            <li>셀프가이드</li>
-            <li>질문과답변</li>
-            <li>3D인테리어</li>
-            <li>이벤트</li>
-          </ul>
-        </div>
-        <div className="main-button">
-          <button onClick={(prev) => setVisible(!prev)}>스토어</button>
-          <ul visible={visible}>
-            <li>스토어홈</li>
-            <li>카테고리</li>
-            <li>베스트</li>
-            <li>오늘의딜</li>
-            <li>취향발견</li>
-            <li>연휴반짝세일</li>
-            <li>오!굿즈</li>
-            <li>빠른배송</li>
-            <li>프리미엄</li>
-            <li>기획전</li>
-          </ul>
-        </div>
-        <div className="main-button">
-          <button onClick={(prev) => setVisible(!prev)}>이사/시공/수리</button>
-          <ul visible={visible}>
-            <li>홈</li>
-            <li>인테리어시공</li>
-            <li>이사</li>
-            <li>설치수리</li>
-            <li>우리동네아파트</li>
-          </ul>
-        </div>
+        {data.map((item, index) => (
+          <SideItem key={index} item={item} />
+        ))}
       </div>
       <div className="main-section">
         <ul>

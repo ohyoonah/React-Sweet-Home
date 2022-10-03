@@ -27,7 +27,7 @@ const Main = () => {
 
   return (
     <>
-      <SideMenu menuOpen={menuOpen} />
+      <SideMenu menuOpen={menuOpen} menuClick={menuClick} />
       <MainBlock menuOpen={menuOpen}>
         <Header menuOpen={menuOpen} menuClick={menuClick} />
         <Slider />

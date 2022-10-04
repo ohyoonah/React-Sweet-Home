@@ -7,17 +7,17 @@ const SideItemBlock = styled.div`
     cursor: pointer;
     display: flex;
     align-items: center;
-    width: 100%;
     justify-content: space-between;
     background: transparent;
-    border: none;
     font-size: 1rem;
     font-weight: 700;
+    margin: 1rem 0;
     svg:first-child {
       font-size: 1.5rem;
     }
-    .arrow {
+    svg:last-child {
       font-size: 1.2rem;
+      transition: transform 0.2s;
       ${(props) => props.active && `transform: rotate(180deg);`}
     }
     span {
@@ -27,20 +27,22 @@ const SideItemBlock = styled.div`
     }
   }
 
-  ul {
+  .sub-contents {
     display: flex;
     height: 0;
     overflow: hidden;
-    display: flex;
     ${(props) =>
       props.active &&
       css`
+        padding: 0.7rem 1.5rem;
         height: 100%;
       `}
-  }
-  li {
-    margin-bottom: 1.3rem;
-    font-size: 0.9rem;
+    div {
+      font-size: 0.9rem;
+      &:not(:last-child) {
+        margin-bottom: 1.5rem;
+      }
+    }
   }
 `;
 
@@ -55,15 +57,15 @@ const SideItem = ({ item }) => {
         <div className="sub-title" onClick={() => setActive(!active)}>
           {item.icon}
           <span>{item.title}</span>
-          <RiArrowDownSLine className="arrow" active={active} />
+          <RiArrowDownSLine active={active} />
         </div>
-        <ul className="sub-contents" active={active}>
-          <li>
+        <div className="sub-contents" active={active}>
+          <div>
             {item.list.map((li, index) => (
               <SideItem item={li} key={index} />
             ))}
-          </li>
-        </ul>
+          </div>
+        </div>
       </SideItemBlock>
     );
   } else {

@@ -42,7 +42,7 @@ const SideMenuBlock = styled.div`
       justify-content: space-between;
       button {
         width: 48%;
-        height: 45px;
+        height: 40px;
         font-weight: 700;
         border-radius: 5px;
         border: 1px solid var(--blue);
@@ -51,6 +51,9 @@ const SideMenuBlock = styled.div`
       .login {
         color: var(--blue);
         background: white;
+        &:hover {
+          background: #36abce15;
+        }
       }
       .register {
         color: white;
@@ -147,14 +150,18 @@ const SideMenu = ({ menuOpen }) => {
           <span>앱다운로드 {">"}</span>
         </div>
         <div className="login-buttons">
-          <button className="login">로그인</button>
+          <button className="login">
+            <Link to="/login">로그인</Link>
+          </button>
           <button className="register">회원가입</button>
         </div>
       </div>
       <div className="nav-section">
-        {data.map((item, index) => (
-          <SideItem key={index} item={item} />
-        ))}
+        <div>
+          {data.map((item, index) => (
+            <SideItem key={index} item={item} />
+          ))}
+        </div>
       </div>
       <div className="main-section">
         <ul>

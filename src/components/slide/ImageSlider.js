@@ -39,13 +39,11 @@ const ImageSlider = () => {
   };
 
   useEffect(() => {
-    console.log(width);
     const mql = window.matchMedia("screen and (max-width:768px)");
     mql.addEventListener("change", screenChange);
     return () => mql.removeEventListener("change", screenChange);
   }, []);
 
-  console.log(width);
   const settings = {
     dots: true,
     infinite: true,

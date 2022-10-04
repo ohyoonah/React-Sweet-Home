@@ -23,7 +23,6 @@ const ItemBlock = styled.div`
       }
     }
     .mark {
-      z-index: 100;
       position: absolute;
       bottom: 10px;
       right: 10px;

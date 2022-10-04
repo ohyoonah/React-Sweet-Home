@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { MdSearch } from "react-icons/md";
 import { BsCart } from "react-icons/bs";
@@ -8,6 +8,9 @@ import { AiOutlineMenu } from "react-icons/ai";
 const MainHeadBlock = styled.div`
   width: 100%;
   border-bottom: 1px solid var(--light-gray);
+  @media screen and (max-width: 768px) {
+    ${(props) => props.moveScroll && `display: none;`}
+  }
 `;
 
 const HeaderContentsBlock = styled.div`
@@ -174,8 +177,24 @@ const NavLinkStyle = styled(NavLink)`
 `;
 
 const MainHeader = ({ menuClick }) => {
+  const [moveScroll, setMoveScroll] = useState(false);
+
+  const handleScroll = (e) => {
+    if (e.deltaY > 0) {
+      setMoveScroll(true);
+    } else {
+      setMoveScroll(false);
+    }
+  };
+
+  useEffect(() => {
+    if (window.matchMedia("screen and (max-width:768px)")) {
+      window.addEventListener("wheel", handleScroll);
+    }
+  }, []);
+
   return (
-    <MainHeadBlock>
+    <MainHeadBlock moveScroll={moveScroll}>
       <HeaderContentsBlock>
         <AiOutlineMenu className="menu-icon" onClick={() => menuClick()} />
         <Link to="/" className="logo">

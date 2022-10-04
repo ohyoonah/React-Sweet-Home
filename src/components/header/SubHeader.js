@@ -61,6 +61,7 @@ const NavLinkStyle = styled(NavLink)`
   @media only screen and (max-width: 768px) {
     font-size: 0.9rem;
     padding: 0.4rem 0;
+    letter-spacing: -2px;
   }
 `;
 

@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { imagesData } from "./imagesData";
+import { useState, useEffect } from "react";
 
 const SliderBlock = styled(Slider)`
   text-align: center;
@@ -30,6 +31,21 @@ const ImageBlock = styled.img`
 `;
 
 const ImageSlider = () => {
+  const [width, setWidth] = useState(window.innerWidth < 768 ? true : false);
+
+  const screenChange = (e) => {
+    const matches = e.matches;
+    setWidth(matches);
+  };
+
+  useEffect(() => {
+    console.log(width);
+    const mql = window.matchMedia("screen and (max-width:768px)");
+    mql.addEventListener("change", screenChange);
+    return () => mql.removeEventListener("change", screenChange);
+  }, []);
+
+  console.log(width);
   const settings = {
     dots: true,
     infinite: true,
@@ -39,13 +55,22 @@ const ImageSlider = () => {
     autoplay: true,
     autoplaySpeed: 4000,
   };
+
   return (
     <div>
-      <SliderBlock {...settings}>
-        {imagesData.map(({ id, name, image }) => (
-          <ImageBlock key={id} src={image} alt={name} />
-        ))}
-      </SliderBlock>
+      {width ? (
+        <SliderBlock {...settings}>
+          {imagesData.map(({ id, name, image2 }) => (
+            <ImageBlock key={id} src={image2} alt={name} />
+          ))}
+        </SliderBlock>
+      ) : (
+        <SliderBlock {...settings}>
+          {imagesData.map(({ id, name, image }) => (
+            <ImageBlock key={id} src={image} alt={name} />
+          ))}
+        </SliderBlock>
+      )}
     </div>
   );
 };

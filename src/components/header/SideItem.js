@@ -49,8 +49,6 @@ const SideItemBlock = styled.div`
 const SideItem = ({ item }) => {
   const [active, setActive] = useState(false);
 
-  console.log(active);
-
   if (item.list) {
     return (
       <SideItemBlock active={active}>

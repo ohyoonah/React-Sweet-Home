@@ -12,29 +12,65 @@ const MainBlock = styled.div`
   ${(props) =>
     props.menuOpen &&
     css`
-      opacity: 0.3;
+      opacity: 0.5;
       overflow: hidden;
       height: 100vh;
-    `}
+      pointer-events: none;
+    `};
+`;
+
+const Overlay = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background: black;
 `;
 
 const Main = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const ref = useRef();
 
   const menuClick = () => {
     setMenuOpen(true);
   };
 
+  const onCloseMenu = (e) => {
+    if (menuOpen && ref.current.contains(e.target)) {
+      setMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousedown", onCloseMenu);
+    return () => {
+      window.removeEventListener("mousedown", onCloseMenu);
+    };
+  }, []);
+
   return (
     <>
-      <SideMenu menuOpen={menuOpen} menuClick={menuClick} />
-      <MainBlock menuOpen={menuOpen}>
-        <Header menuOpen={menuOpen} menuClick={menuClick} />
-        <Slider />
-        <Store />
-        <Product />
-        <Category />
-      </MainBlock>
+      {menuOpen ? (
+        <>
+          <SideMenu menuOpen={menuOpen} menuClick={menuClick} />
+          <Overlay ref={ref} />
+          <MainBlock menuOpen={menuOpen}>
+            <Header menuOpen={menuOpen} menuClick={menuClick} />
+            <Slider />
+            <Store />
+            <Product />
+            <Category />
+          </MainBlock>
+        </>
+      ) : (
+        <MainBlock menuOpen={menuOpen}>
+          <Header menuOpen={menuOpen} menuClick={menuClick} />
+          <Slider />
+          <Store />
+          <Product />
+          <Category />
+        </MainBlock>
+      )}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { CgClose } from "react-icons/cg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const BannerBlock = styled.div`
   display: block;

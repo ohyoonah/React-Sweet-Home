@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BsBookmarkFill } from "react-icons/bs";
+import { useState } from "react";
 
 const ItemBlock = styled.div`
   width: 25%;
@@ -7,6 +8,17 @@ const ItemBlock = styled.div`
   cursor: pointer;
   span {
     color: var(--gray);
+  }
+  .d-day {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--red);
+    color: white;
+    border-radius: 5px;
+    padding: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 700;
   }
   .image {
     max-height: 270px;
@@ -115,35 +127,80 @@ const ItemBlock = styled.div`
 //   );
 // };
 
-const DealItem = ({ data, onToggle }) => {
-  const { id, title, brand, img, discount, price, star, review, check } = data;
+// const DealItem = ({ data, onToggle }) => {
+//   const { id, title, brand, img, discount, price, star, review, check } = data;
+
+//   return (
+//     <ItemBlock>
+//       <div className="image">
+//         <img src={img} alt={title} />
+//         {check ? (
+//           <BsBookmarkFill
+//             onClick={() => onToggle(id)}
+//             className="mark"
+//             style={{ color: "var(--blue)" }}
+//           />
+//         ) : (
+//           <BsBookmarkFill onClick={() => onToggle(id)} className="mark" />
+//         )}
+//       </div>
+//       <div className="body">
+//         <span className="brand">{brand}</span>
+//         <span className="title">{title}</span>
+//         <div>
+//           <span className="discount">{discount}</span>
+//           <span className="price">{price}</span>
+//         </div>
+//         <div>
+//           <span className="star">
+//             <span>★</span> {star}
+//           </span>
+//           <span className="review_count">리뷰 {review}</span>
+//         </div>
+//       </div>
+//     </ItemBlock>
+//   );
+// };
+
+const DealItem = ({ item }) => {
+  const [check, setCheck] = useState(false);
+  const { title, production, end_at, start_at, sub_images } = item;
+  const discount = Math.floor(
+    ((production.original_price - production.selling_price) /
+      production.original_price) *
+      100
+  );
+  const dDay = Math.floor(
+    (Date.parse(end_at) - Date.now()) / (1000 * 60 * 60 * 24)
+  );
 
   return (
     <ItemBlock>
       <div className="image">
-        <img src={img} alt={title} />
+        <img src={production.image_url} alt={title} />
+        <div className="d-day">{dDay}일 남음</div>
         {check ? (
           <BsBookmarkFill
-            onClick={() => onToggle(id)}
+            // onClick={() => onToggle(production.id)}
             className="mark"
             style={{ color: "var(--blue)" }}
           />
         ) : (
-          <BsBookmarkFill onClick={() => onToggle(id)} className="mark" />
+          <BsBookmarkFill className="mark" />
         )}
       </div>
       <div className="body">
-        <span className="brand">{brand}</span>
+        <span className="brand">{production.brand.name}</span>
         <span className="title">{title}</span>
         <div>
-          <span className="discount">{discount}</span>
-          <span className="price">{price}</span>
+          {discount ? <span className="discount">{discount}%</span> : null}
+          <span className="price">{production.selling_price}</span>
         </div>
         <div>
           <span className="star">
-            <span>★</span> {star}
+            <span>★</span> {production.review_avg}
           </span>
-          <span className="review_count">리뷰 {review}</span>
+          <span className="review_count">리뷰 {production.review_count}</span>
         </div>
       </div>
     </ItemBlock>

@@ -164,7 +164,7 @@ const ItemBlock = styled.div`
 
 const DealItem = ({ item }) => {
   const [check, setCheck] = useState(false);
-  const { title, production, end_at, start_at, sub_images } = item;
+  const { title, production, end_at } = item;
   const discount = Math.floor(
     ((production.original_price - production.selling_price) /
       production.original_price) *
@@ -194,7 +194,11 @@ const DealItem = ({ item }) => {
         <span className="title">{title}</span>
         <div>
           {discount ? <span className="discount">{discount}%</span> : null}
-          <span className="price">{production.selling_price}</span>
+          <span className="price">
+            {production.selling_price
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          </span>
         </div>
         <div>
           <span className="star">

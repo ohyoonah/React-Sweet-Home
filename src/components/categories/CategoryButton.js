@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { db } from "../../Firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { categoryData } from "./categoryData";
+import axios from "axios";
+import Slider from "react-slick";
 
 const CategoryBlock = styled.div`
   background: white;
@@ -19,16 +21,33 @@ const CategoryButtonBlock = styled.div`
       padding: 0 1rem;
     }
   }
-  .body {
-    padding: 0 4rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    @media only screen and (max-width: 1024px) {
-      padding: 0;
-      width: 100%;
-      justify-content: start;
-    }
+`;
+
+const SliderBlock = styled(Slider)`
+  width: 100%;
+  height: 100%;
+  padding: 0 4rem;
+  overflow-x: hidden;
+  position: relative;
+  .slick-arrow {
+    width: 40px;
+    height: 40px;
+    background: black;
+  }
+  .slick-next {
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+  }
+  .slick-prev {
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+  }
+  @media only screen and (max-width: 1024px) {
+    padding: 0;
+    width: 100%;
+    justify-content: start;
   }
 `;
 
@@ -36,12 +55,16 @@ const ButtonItemBlock = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 90px;
-  height: 100px;
   font-weight: 700;
+  justify-content: center;
   img {
-    margin-bottom: 10px;
+    width: 90px;
+    margin: 0 auto;
     cursor: pointer;
+  }
+  span {
+    display: inline-block;
+    margin-top: 10px;
   }
   @media only screen and (max-width: 1024px) {
     border: 1px solid var(--light-gray);
@@ -96,23 +119,61 @@ const ButtonItemBlock = styled.div`
 //     </CategoryBlock>
 //   );
 // };
+// const CategoryButton = () => {
+//   return (
+//     <CategoryBlock>
+//       <CategoryButtonBlock>
+//         <h2>카테고리</h2>
+//         <div className="body">
+//           {categoryData
+//             .filter(({ id }) => id < 10)
+//             .map(({ id, image, name }) => {
+//               return (
+//                 <ButtonItemBlock key={id}>
+//                   <img src={image} alt={image} />
+//                   <span>{name}</span>
+//                 </ButtonItemBlock>
+//               );
+//             })}
+//         </div>
+//       </CategoryButtonBlock>
+//     </CategoryBlock>
+//   );
+// };
 const CategoryButton = () => {
+  const [category, setCategory] = useState(null);
+
+  useEffect(() => {
+    axios.get("/api").then((res) => {
+      setCategory(res.data.categories);
+      console.log(res.data.categories);
+    });
+  }, []);
+
+  const settings = {
+    infinite: false,
+    slidesToScroll: 5,
+    slidesToShow: 10,
+    arrow: true,
+    speed: 500,
+    draggable: false,
+  };
+
   return (
     <CategoryBlock>
       <CategoryButtonBlock>
         <h2>카테고리</h2>
-        <div className="body">
-          {categoryData
-            .filter(({ id }) => id < 10)
-            .map(({ id, image, name }) => {
+        <SliderBlock {...settings}>
+          {category &&
+            category.map(({ id, image_url, title }) => {
               return (
                 <ButtonItemBlock key={id}>
-                  <img src={image} alt={image} />
-                  <span>{name}</span>
+                  <img src={image_url} alt={title} />
+                  <span>{title}</span>
                 </ButtonItemBlock>
               );
             })}
-        </div>
+        </SliderBlock>
       </CategoryButtonBlock>
     </CategoryBlock>
   );

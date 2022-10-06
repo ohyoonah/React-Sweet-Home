@@ -18,6 +18,54 @@ const CategoryButtonBlock = styled.div`
       padding: 0 1rem;
     }
   }
+  .body {
+    padding: 0 4rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @media only screen and (max-width: 1024px) {
+      padding: 0;
+      width: 100%;
+      justify-content: start;
+    }
+  }
+`;
+
+const ButtonItemBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: 700;
+  justify-content: center;
+
+  img {
+    width: 90px;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  span {
+    display: inline-block;
+    margin-top: 10px;
+  }
+  @media only screen and (max-width: 1024px) {
+    border: 1px solid var(--light-gray);
+    padding: 1rem;
+    width: 20%;
+    height: 100%;
+    img {
+      width: 50%;
+      margin: 0 auto;
+      padding: 1rem 0;
+    }
+    span {
+      margin-bottom: 0.5rem;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    width: 25%;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+  }
 `;
 
 const SliderBlock = styled(Slider)`
@@ -41,104 +89,22 @@ const SliderBlock = styled(Slider)`
     bottom: 0;
     left: -10px;
   }
-  @media only screen and (max-width: 1024px) {
-    padding: 0;
-    width: 100%;
-    justify-content: start;
-  }
 `;
 
-const ButtonItemBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-weight: 700;
-  justify-content: center;
-  img {
-    width: 90px;
-    margin: 0 auto;
-    cursor: pointer;
-  }
-  span {
-    display: inline-block;
-    margin-top: 10px;
-  }
-  @media only screen and (max-width: 1024px) {
-    border: 1px solid var(--light-gray);
-    padding: 1rem;
-    width: 20%;
-    height: 100%;
-    img {
-      width: 50%;
-      margin: 0 auto;
-      padding: 1rem 0;
-    }
-    span {
-      margin-bottom: 0.5rem;
-    }
-
-    @media only screen and (max-width: 768px) {
-      width: 25%;
-      padding: 1.5rem;
-      font-size: 0.8rem;
-    }
-  }
-`;
-
-// const CategoryButton = () => {
-//   const [category, setCategory] = useState([]);
-//   const collectionRef = collection(db, "category");
-
-//   useEffect(() => {
-//     const getData = async () => {
-//       const data = await getDocs(collectionRef);
-//       setCategory(data.docs.map((doc) => ({ ...doc.data() })));
-//     };
-//     getData();
-//   }, [collectionRef]);
-
-//   return (
-//     <CategoryBlock>
-//       <h2>카테고리</h2>
-//       <CategoryButtonBlock>
-//         {category
-//           .sort((a, b) => a.id - b.id)
-//           .filter((data) => data.id <= 10)
-//           .map((data) => {
-//             return (
-//               <ButtonItemBlock key={data.id}>
-//                 <img src={data.image} alt={data.image} />
-//                 <span>{data.name}</span>
-//               </ButtonItemBlock>
-//             );
-//           })}
-//       </CategoryButtonBlock>
-//     </CategoryBlock>
-//   );
-// };
-// const CategoryButton = () => {
-//   return (
-//     <CategoryBlock>
-//       <CategoryButtonBlock>
-//         <h2>카테고리</h2>
-//         <div className="body">
-//           {categoryData
-//             .filter(({ id }) => id < 10)
-//             .map(({ id, image, name }) => {
-//               return (
-//                 <ButtonItemBlock key={id}>
-//                   <img src={image} alt={image} />
-//                   <span>{name}</span>
-//                 </ButtonItemBlock>
-//               );
-//             })}
-//         </div>
-//       </CategoryButtonBlock>
-//     </CategoryBlock>
-//   );
-// };
 const CategoryButton = () => {
   const [category, setCategory] = useState(null);
+  const [width, setWidth] = useState(window.innerWidth < 1024 ? true : false);
+
+  const screenChange = (e) => {
+    const matches = e.matches;
+    setWidth(matches);
+  };
+
+  useEffect(() => {
+    const mql = window.matchMedia("screen and (max-width:1024px)");
+    mql.addEventListener("change", screenChange);
+    return () => mql.removeEventListener("change", screenChange);
+  }, []);
 
   useEffect(() => {
     axios.get("/api").then((res) => {
@@ -159,17 +125,31 @@ const CategoryButton = () => {
     <CategoryBlock>
       <CategoryButtonBlock>
         <h2>카테고리</h2>
-        <SliderBlock {...settings}>
-          {category &&
-            category.map(({ id, image_url, title }) => {
-              return (
-                <ButtonItemBlock key={id}>
-                  <img src={image_url} alt={title} />
-                  <span>{title}</span>
-                </ButtonItemBlock>
-              );
-            })}
-        </SliderBlock>
+        {width ? (
+          <div className="body">
+            {category &&
+              category.map(({ id, image_url, title }) => {
+                return (
+                  <ButtonItemBlock key={id}>
+                    <img src={image_url} alt={title} />
+                    <span>{title}</span>
+                  </ButtonItemBlock>
+                );
+              })}
+          </div>
+        ) : (
+          <SliderBlock {...settings}>
+            {category &&
+              category.map(({ id, image_url, title }) => {
+                return (
+                  <ButtonItemBlock key={id}>
+                    <img src={image_url} alt={title} />
+                    <span>{title}</span>
+                  </ButtonItemBlock>
+                );
+              })}
+          </SliderBlock>
+        )}
       </CategoryButtonBlock>
     </CategoryBlock>
   );

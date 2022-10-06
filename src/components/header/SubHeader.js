@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import CategoryHover from "./CategoryHover";
+import SubCategory from "./SubCategory";
 
 const SubHeadBlock = styled.div`
   width: 100%;
   border-bottom: 1px solid var(--light-gray);
   position: relative;
-  overflow-x: auto;
-  white-space: nowrap;
   ${(props) => props.moveScroll && `display: none;`}
   ${(props) => props.menuOpen && `display: fixed;`}
 `;
@@ -18,6 +16,8 @@ const SubContentsBlock = styled.div`
   width: 100%;
   padding: 0 4rem;
   max-width: 1256px;
+  overflow-x: auto;
+  white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -152,8 +152,8 @@ const SubHeader = ({ menuOpen }) => {
             기획전
           </NavLinkStyle>
         </nav>
-        {visible && <CategoryHover />}
       </SubContentsBlock>
+      {visible && <SubCategory />}
     </SubHeadBlock>
   );
 };

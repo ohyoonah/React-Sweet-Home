@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import DealItem from "./DealItem";
-import { db } from "../../Firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { dealData } from "./dealData";
 import axios from "axios";
 
 const TodayDealBlock = styled.div`
@@ -55,70 +52,6 @@ const TodayDealBlock = styled.div`
     }
   }
 `;
-
-// const TodayDeal = () => {
-//   const [deal, setDeal] = useState([]);
-//   const dealRef = collection(db, "today_deal");
-
-//   useEffect(() => {
-//     const getData = async () => {
-//       const data = await getDocs(dealRef);
-//       setDeal(data.docs.map((doc) => ({ ...doc.data() })));
-//     };
-//     getData();
-//   }, [dealRef]);
-
-//   const onToggle = (id) => {
-//     setDeal(
-//       deal.map((data) =>
-//         data.id === db.id ? { ...data, check: !data.check } : data
-//       )
-//     );
-//   };
-
-//   return (
-//     <TodayDealBlock>
-//       <div className="title">
-//         <h2>오늘의딜</h2>
-//         <span>더보기</span>
-//       </div>
-//       <div className="items">
-//         {deal
-//           .sort((a, b) => a.id - b.id)
-//           .map((data) => (
-//             <DealItem key={data.id} data={data} onToggle={onToggle} />
-//           ))}
-//       </div>
-//     </TodayDealBlock>
-//   );
-// };
-
-// const TodayDeal = () => {
-//   const [mark, setMark] = useState(dealData);
-
-//   const onToggle = (id) => {
-//     setMark(
-//       mark.map((data) =>
-//         data.id === id ? { ...data, check: !data.check } : data
-//       )
-//     );
-//   };
-
-//   return (
-//     <TodayDealBlock>
-//       <div className="title">
-//         <h2>오늘의딜</h2>
-//         <span>더보기</span>
-//       </div>
-//       <div className="items">
-//         {mark.map((data) => (
-//           <DealItem key={data.id} data={data} onToggle={onToggle} />
-//         ))}
-//       </div>
-//       <button className="deal-button">오늘의딜 더보기{">"}</button>
-//     </TodayDealBlock>
-//   );
-// };
 
 const TodayDeal = () => {
   const [deal, setDeal] = useState(null);

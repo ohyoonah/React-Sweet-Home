@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { db } from "../../Firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { categoryData } from "./categoryData";
 import axios from "axios";
 import Slider from "react-slick";
 

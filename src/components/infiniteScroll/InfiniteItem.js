@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { BsBookmarkFill } from "react-icons/bs";
 import { useState } from "react";
 
 const ItemBlock = styled.div`
@@ -96,53 +95,21 @@ const ItemBlock = styled.div`
   }
 `;
 
-const DealItem = ({ item }) => {
-  const [check, setCheck] = useState(false);
-  const { title, production, end_at } = item;
-  const discount = Math.floor(
-    ((production.original_price - production.selling_price) /
-      production.original_price) *
-      100
-  );
-  const dDay = Math.floor(
-    (Date.parse(end_at) - Date.now()) / (1000 * 60 * 60 * 24)
-  );
+const InfiniteItem = ({ item }) => {
+  // const [check, setCheck] = useState(false);
+  const { image_url, brand_name, name } = item;
 
   return (
     <ItemBlock>
       <div className="image">
-        <img src={production.image_url} alt={title} />
-        <div className="d-day">{dDay}일 남음</div>
-        {check ? (
-          <BsBookmarkFill
-            // onClick={() => onToggle(production.id)}
-            className="mark"
-            style={{ color: "var(--blue)" }}
-          />
-        ) : (
-          <BsBookmarkFill className="mark" />
-        )}
+        <img src={image_url} alt={brand_name} />
       </div>
       <div className="body">
-        <span className="brand">{production.brand.name}</span>
-        <span className="title">{title}</span>
-        <div>
-          {discount && <span className="discount">{discount}%</span>}
-          <span className="price">
-            {production.selling_price
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-          </span>
-        </div>
-        <div>
-          <span className="star">
-            <span>★</span> {production.review_avg}
-          </span>
-          <span className="review_count">리뷰 {production.review_count}</span>
-        </div>
+        <span className="brand">{brand_name}</span>
+        <span className="title">{name}</span>
       </div>
     </ItemBlock>
   );
 };
 
-export default DealItem;
+export default InfiniteItem;

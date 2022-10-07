@@ -6,11 +6,12 @@ import Product from "./Product";
 import Store from "./Store";
 import Category from "./Category";
 import SideMenu from "../components/header/SideMenu";
+import Infinite from "./Infinite";
 
 const MainBlock = styled.div`
   background: white;
-  ${(props) =>
-    props.menuOpen &&
+  ${({ menuOpen }) =>
+    menuOpen &&
     css`
       opacity: 0.5;
       overflow: hidden;
@@ -50,27 +51,20 @@ const Main = () => {
 
   return (
     <>
-      {menuOpen ? (
+      {menuOpen && (
         <>
           <SideMenu menuOpen={menuOpen} menuClick={menuClick} />
           <Overlay ref={ref} />
-          <MainBlock menuOpen={menuOpen}>
-            <Header menuOpen={menuOpen} menuClick={menuClick} />
-            <Slider />
-            <Store />
-            <Product />
-            <Category />
-          </MainBlock>
         </>
-      ) : (
-        <MainBlock menuOpen={menuOpen}>
-          <Header menuOpen={menuOpen} menuClick={menuClick} />
-          <Slider />
-          <Store />
-          <Product />
-          <Category />
-        </MainBlock>
       )}
+      <MainBlock menuOpen={menuOpen}>
+        <Header menuOpen={menuOpen} menuClick={menuClick} />
+        <Slider />
+        <Store />
+        <Product />
+        <Category />
+        <Infinite />
+      </MainBlock>
     </>
   );
 };

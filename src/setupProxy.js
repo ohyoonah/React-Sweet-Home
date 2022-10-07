@@ -8,4 +8,13 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    "/store",
+    createProxyMiddleware({
+      target: "https://ohou.se",
+      changeOrigin: true,
+    })
+  );
 };
+
+// /store/category.json?v=2&order=popular&page=1&per=24

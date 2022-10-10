@@ -1,23 +1,13 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { BsBookmarkFill } from "react-icons/bs";
+import React, { useState } from "react";
 
 const ItemBlock = styled.div`
-  width: 25%;
+  width: 100%;
   padding: 1rem 0.5rem;
   cursor: pointer;
   span {
     color: var(--gray);
-  }
-  .d-day {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: var(--red);
-    color: white;
-    border-radius: 5px;
-    padding: 0.3rem;
-    font-size: 0.8rem;
-    font-weight: 700;
   }
   .image {
     max-height: 270px;
@@ -50,6 +40,11 @@ const ItemBlock = styled.div`
       margin-bottom: 0.3rem;
       font-size: 0.7rem;
     }
+    .special-price {
+      display: block;
+      color: var(--red);
+      font-weight: 800;
+    }
     .discount {
       color: var(--blue);
       font-weight: 600;
@@ -78,38 +73,75 @@ const ItemBlock = styled.div`
     width: 33%;
   }
   @media only screen and (max-width: 768px) {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+    width: 50%;
     align-items: center;
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--light-gray);
-    }
     .image {
-      width: 45%;
-      height: 300px;
+      width: 100%;
+      max-height: 100%;
     }
     .body {
-      width: 55%;
+      width: 100%;
     }
   }
 `;
 
-const InfiniteItem = ({ item }) => {
-  // const [check, setCheck] = useState(false);
-  const { image_url, brand_name, name } = item;
+const InfiniteItem = React.forwardRef(({ item }, ref) => {
+  const [check, setCheck] = useState(false);
+  const {
+    image_url,
+    brand_name,
+    name,
+    original_price,
+    selling_price,
+    review_avg,
+    review_count,
+    is_special_price,
+  } = item;
 
-  return (
-    <ItemBlock>
-      <div className="image">
-        <img src={image_url} alt={brand_name} />
-      </div>
-      <div className="body">
-        <span className="brand">{brand_name}</span>
-        <span className="title">{name}</span>
-      </div>
-    </ItemBlock>
+  const discount = Math.floor(
+    ((original_price - selling_price) / original_price) * 100
   );
-};
+
+  const itemBody = (
+    <div>
+      <ItemBlock>
+        <div className="image">
+          <img src={image_url} alt={brand_name} />
+          {check ? (
+            <BsBookmarkFill
+              // onClick={() => onToggle(production.id)}
+              className="mark"
+              style={{ color: "var(--blue)" }}
+            />
+          ) : (
+            <BsBookmarkFill className="mark" />
+          )}
+        </div>
+        <div className="body">
+          <span className="brand">{brand_name}</span>
+          <span className="title">{name}</span>
+          <div>
+            {is_special_price && (
+              <span className="special-price">파격 세일중!</span>
+            )}
+            {discount ? <span className="discount">{discount}%</span> : null}
+            <span className="price">
+              {selling_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </span>
+          </div>
+          <div>
+            <span className="star">
+              <span>★</span> {review_avg}
+            </span>
+            <span className="review_count">리뷰 {review_count}</span>
+          </div>
+        </div>
+      </ItemBlock>
+    </div>
+  );
+
+  const content = ref ? <div ref={ref}>{itemBody}</div> : <div>{itemBody}</div>;
+  return content;
+});
 
 export default InfiniteItem;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
+import { useInfiniteQuery } from "react-query";
 import axios from "axios";
 import InfiniteItem from "./InfiniteItem";
 
@@ -30,39 +31,73 @@ const InfiniteBlock = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  .deal-button {
-    display: none;
+  .content {
+    width: 25%;
   }
   @media only screen and (max-width: 1256px) {
     padding: 0 3rem;
   }
   @media only screen and (max-width: 768px) {
     padding: 0 1rem;
-    .deal-button {
-      display: block;
-      width: 100%;
-      height: 50px;
-      border: none;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--gray);
-      border-radius: 5px;
-      cursor: pointer;
-    }
   }
 `;
 
 const InfiniteLoad = () => {
-  const [product, setProduct] = useState(null);
+  const getItemPage = async (page = 1, options = {}) => {
+    const res = await axios.get(
+      `/store/category.json?v=2&order=popular&page=${page}`,
+      options
+    );
+    return res.data.selected_products;
+  };
 
-  useEffect(() => {
-    axios
-      .get("/store/category.json?v=2&order=popular&page=1&per=24v=2&")
-      .then((res) => {
-        setProduct(res.data.selected_products);
-        console.log(res.data.selected_products);
+  const {
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    data,
+    status,
+    error,
+  } = useInfiniteQuery("/items", ({ page = 1 }) => getItemPage(page), {
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length ? allPages.length + 1 : undefined;
+    },
+  });
+
+  const intObserver = useRef();
+  const lastPostRef = useCallback(
+    (item) => {
+      if (isFetchingNextPage) return;
+      if (intObserver.current) intObserver.current.disconnect();
+      intObserver.current = new IntersectionObserver((items) => {
+        if (items[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
       });
-  }, []);
+      if (item) intObserver.current.observe(item);
+    },
+    [isFetchingNextPage, fetchNextPage, hasNextPage]
+  );
+
+  if (status === "error")
+    return <p className="center">Error: {error.message}</p>;
+
+  const content = data?.pages.map((pg) => {
+    return pg.map((item, i) => {
+      if (pg.length === i + 1) {
+        return (
+          // <div className="items">
+          <InfiniteItem ref={lastPostRef} key={i} item={item} />
+          // </div>
+        );
+      }
+      return (
+        // <div className="items">
+        <InfiniteItem key={i} item={item} />
+        // </div>
+      );
+    });
+  });
 
   return (
     <InfiniteBlock>
@@ -70,13 +105,10 @@ const InfiniteLoad = () => {
         <h2>인기상품</h2>
         <span>더보기</span>
       </div>
-      {product && (
-        <div className="items">
-          {product.map((item, index) => (
-            <InfiniteItem key={index} item={item} />
-          ))}
-        </div>
-      )}
+      <div className="items">
+        <div className="content">{content}</div>
+        {isFetchingNextPage && <p>Loading...</p>}
+      </div>
     </InfiniteBlock>
   );
 };

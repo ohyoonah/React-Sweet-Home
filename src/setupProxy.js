@@ -16,5 +16,3 @@ module.exports = function (app) {
     })
   );
 };
-
-// /store/category.json?v=2&order=popular&page=1&per=24

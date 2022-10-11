@@ -1,9 +1,15 @@
 import styled from "styled-components";
-import { BsBookmarkFill } from "react-icons/bs";
 import React, { useState } from "react";
+import { BsBookmarkFill } from "react-icons/bs";
+
+const ContentsBlock = styled.div`
+  width: 25%;
+  @media only screen and (max-width: 768px) {
+    width: 50%;
+  }
+`;
 
 const ItemBlock = styled.div`
-  width: 100%;
   padding: 1rem 0.5rem;
   cursor: pointer;
   span {
@@ -69,18 +75,10 @@ const ItemBlock = styled.div`
       font-weight: 600;
     }
   }
-  @media only screen and (max-width: 1024px) {
-    width: 33%;
-  }
   @media only screen and (max-width: 768px) {
-    width: 50%;
-    align-items: center;
     .image {
       width: 100%;
       max-height: 100%;
-    }
-    .body {
-      width: 100%;
     }
   }
 `;
@@ -103,45 +101,46 @@ const InfiniteItem = React.forwardRef(({ item }, ref) => {
   );
 
   const itemBody = (
-    <div>
-      <ItemBlock>
-        <div className="image">
-          <img src={image_url} alt={brand_name} />
-          {check ? (
-            <BsBookmarkFill
-              // onClick={() => onToggle(production.id)}
-              className="mark"
-              style={{ color: "var(--blue)" }}
-            />
-          ) : (
-            <BsBookmarkFill className="mark" />
+    <ItemBlock>
+      <div className="image">
+        <img src={image_url} alt={brand_name} />
+        {check ? (
+          <BsBookmarkFill
+            // onClick={() => onToggle(production.id)}
+            className="mark"
+            style={{ color: "var(--blue)" }}
+          />
+        ) : (
+          <BsBookmarkFill className="mark" />
+        )}
+      </div>
+      <div className="body">
+        <span className="brand">{brand_name}</span>
+        <span className="title">{name}</span>
+        <div>
+          {is_special_price && (
+            <span className="special-price">파격 세일중!</span>
           )}
+          {discount ? <span className="discount">{discount}%</span> : null}
+          <span className="price">
+            {selling_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          </span>
         </div>
-        <div className="body">
-          <span className="brand">{brand_name}</span>
-          <span className="title">{name}</span>
-          <div>
-            {is_special_price && (
-              <span className="special-price">파격 세일중!</span>
-            )}
-            {discount ? <span className="discount">{discount}%</span> : null}
-            <span className="price">
-              {selling_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            </span>
-          </div>
-          <div>
-            <span className="star">
-              <span>★</span> {review_avg}
-            </span>
-            <span className="review_count">리뷰 {review_count}</span>
-          </div>
+        <div>
+          <span className="star">
+            <span>★</span> {review_avg}
+          </span>
+          <span className="review_count">리뷰 {review_count}</span>
         </div>
-      </ItemBlock>
-    </div>
+      </div>
+    </ItemBlock>
   );
 
-  const content = ref ? <div ref={ref}>{itemBody}</div> : <div>{itemBody}</div>;
-  return content;
+  return ref ? (
+    <ContentsBlock ref={ref}>{itemBody}</ContentsBlock>
+  ) : (
+    <ContentsBlock>{itemBody}</ContentsBlock>
+  );
 });
 
 export default InfiniteItem;

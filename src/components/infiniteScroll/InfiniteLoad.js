@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useRef, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import { useInfiniteQuery } from "react-query";
 import axios from "axios";
 import InfiniteItem from "./InfiniteItem";
@@ -31,11 +31,11 @@ const InfiniteBlock = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  .content {
-    width: 25%;
-  }
   @media only screen and (max-width: 1256px) {
     padding: 0 3rem;
+  }
+  @media only screen and (max-width: 1024px) {
+    padding: 0 1.5rem;
   }
   @media only screen and (max-width: 768px) {
     padding: 0 1rem;
@@ -45,7 +45,7 @@ const InfiniteBlock = styled.div`
 const InfiniteLoad = () => {
   const getItemPage = async (page = 1, options = {}) => {
     const res = await axios.get(
-      `/store/category.json?v=2&order=popular&page=${page}`,
+      `/store/category.json?v=2&order=popular&page=${page}&per=24`,
       options
     );
     return res.data.selected_products;
@@ -65,7 +65,7 @@ const InfiniteLoad = () => {
   });
 
   const intObserver = useRef();
-  const lastPostRef = useCallback(
+  const lastItemRef = useCallback(
     (item) => {
       if (isFetchingNextPage) return;
       if (intObserver.current) intObserver.current.disconnect();
@@ -83,19 +83,11 @@ const InfiniteLoad = () => {
     return <p className="center">Error: {error.message}</p>;
 
   const content = data?.pages.map((pg) => {
-    return pg.map((item, i) => {
-      if (pg.length === i + 1) {
-        return (
-          // <div className="items">
-          <InfiniteItem ref={lastPostRef} key={i} item={item} />
-          // </div>
-        );
+    return pg.map((item, index) => {
+      if (pg.length === index + 1) {
+        return <InfiniteItem ref={lastItemRef} key={index} item={item} />;
       }
-      return (
-        // <div className="items">
-        <InfiniteItem key={i} item={item} />
-        // </div>
-      );
+      return <InfiniteItem key={index} item={item} />;
     });
   });
 
@@ -106,7 +98,7 @@ const InfiniteLoad = () => {
         <span>더보기</span>
       </div>
       <div className="items">
-        <div className="content">{content}</div>
+        {content}
         {isFetchingNextPage && <p>Loading...</p>}
       </div>
     </InfiniteBlock>

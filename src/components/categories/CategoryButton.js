@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState, useEffect } from "react";
+import { HiOutlinePlus } from "react-icons/hi";
 import axios from "axios";
 import Slider from "react-slick";
 
@@ -14,6 +15,9 @@ const CategoryButtonBlock = styled.div`
     padding: 0 4rem;
     letter-spacing: -2px;
     font-size: 1.3rem;
+    @media only screen and (max-width: 1024px) {
+      padding: 0 3rem;
+    }
     @media only screen and (max-width: 768px) {
       padding: 0 1rem;
     }
@@ -37,8 +41,8 @@ const ButtonItemBlock = styled.div`
   text-align: center;
   font-weight: 700;
   justify-content: center;
-
-  img {
+  img,
+  svg {
     width: 90px;
     margin: 0 auto;
     cursor: pointer;
@@ -47,18 +51,31 @@ const ButtonItemBlock = styled.div`
     display: inline-block;
     margin-top: 10px;
   }
+
   @media only screen and (max-width: 1024px) {
     border: 1px solid var(--light-gray);
     padding: 1rem;
     width: 20%;
-    height: 100%;
+    height: 180px;
     img {
       width: 50%;
       margin: 0 auto;
-      padding: 1rem 0;
     }
     span {
       margin-bottom: 0.5rem;
+    }
+    &.more-button {
+      height: 180px;
+      background: var(--light-gray);
+      svg {
+        font-size: 3rem;
+      }
+      cursor: pointer;
+      ${({ more }) =>
+        more &&
+        css`
+          display: none;
+        `}
     }
   }
   @media only screen and (max-width: 768px) {
@@ -94,6 +111,7 @@ const SliderBlock = styled(Slider)`
 const CategoryButton = () => {
   const [category, setCategory] = useState(null);
   const [width, setWidth] = useState(window.innerWidth < 1024 ? true : false);
+  const [more, setMore] = useState(false);
 
   const screenChange = (e) => {
     const matches = e.matches;
@@ -128,7 +146,24 @@ const CategoryButton = () => {
         {width ? (
           <div className="body">
             {category &&
-              category.map(({ id, image_url, title }) => {
+              category.slice(0, 9).map(({ id, image_url, title }) => {
+                return (
+                  <ButtonItemBlock key={id}>
+                    <img src={image_url} alt={title} />
+                    <span>{title}</span>
+                  </ButtonItemBlock>
+                );
+              })}
+            <ButtonItemBlock
+              more={more}
+              className="more-button"
+              onClick={() => setMore(true)}
+            >
+              <HiOutlinePlus />
+              <span>더보기</span>
+            </ButtonItemBlock>
+            {more &&
+              category.slice(9).map(({ id, image_url, title }) => {
                 return (
                   <ButtonItemBlock key={id}>
                     <img src={image_url} alt={title} />

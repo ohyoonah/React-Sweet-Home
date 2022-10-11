@@ -42,6 +42,12 @@ const InfiniteBlock = styled.div`
   }
 `;
 
+const SelectBlock = styled.select`
+  border: none;
+  outline: none;
+  width: 100px;
+`;
+
 const InfiniteLoad = () => {
   const getItemPage = async (page = 1, options = {}) => {
     const res = await axios.get(
@@ -95,7 +101,29 @@ const InfiniteLoad = () => {
     <InfiniteBlock>
       <div className="title">
         <h2>인기상품</h2>
-        <span>더보기</span>
+        <SelectBlock defaultValue="2">
+          <option key="1" value="1">
+            판매순
+          </option>
+          <option key="2" value="2">
+            인기순
+          </option>
+          <option key="3" value="3">
+            많은 리뷰순
+          </option>
+          <option key="4" value="4">
+            유저사진 많은순
+          </option>
+          <option key="5" value="5">
+            높은가격순
+          </option>
+          <option key="6" value="6">
+            낮은가격순
+          </option>
+          <option key="7" value="7">
+            최신순
+          </option>
+        </SelectBlock>
       </div>
       <div className="items">
         {content}

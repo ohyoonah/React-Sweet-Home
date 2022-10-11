@@ -108,6 +108,10 @@ const DealItem = ({ item }) => {
     (Date.parse(end_at) - Date.now()) / (1000 * 60 * 60 * 24)
   );
 
+  const onToggle = () => {
+    setCheck((prev) => !prev);
+  };
+
   return (
     <ItemBlock>
       <div className="image">
@@ -115,12 +119,12 @@ const DealItem = ({ item }) => {
         <div className="d-day">{dDay}일 남음</div>
         {check ? (
           <BsBookmarkFill
-            // onClick={() => onToggle(production.id)}
+            onClick={onToggle}
             className="mark"
             style={{ color: "var(--blue)" }}
           />
         ) : (
-          <BsBookmarkFill className="mark" />
+          <BsBookmarkFill onClick={onToggle} className="mark" />
         )}
       </div>
       <div className="body">

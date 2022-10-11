@@ -100,18 +100,22 @@ const InfiniteItem = React.forwardRef(({ item }, ref) => {
     ((original_price - selling_price) / original_price) * 100
   );
 
+  const onToggle = () => {
+    setCheck((prev) => !prev);
+  };
+
   const itemBody = (
     <ItemBlock>
       <div className="image">
         <img src={image_url} alt={brand_name} />
         {check ? (
           <BsBookmarkFill
-            // onClick={() => onToggle(production.id)}
+            onClick={onToggle}
             className="mark"
             style={{ color: "var(--blue)" }}
           />
         ) : (
-          <BsBookmarkFill className="mark" />
+          <BsBookmarkFill onClick={onToggle} className="mark" />
         )}
       </div>
       <div className="body">

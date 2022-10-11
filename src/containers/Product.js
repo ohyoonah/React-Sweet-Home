@@ -1,14 +1,7 @@
-import styled from "styled-components";
-import TodayDeal from "../components/product/TodayDeal";
-
-const ProductBlock = styled.div``;
+import ProductList from "../components/product/ProductList";
 
 const Product = () => {
-  return (
-    <ProductBlock>
-      <TodayDeal />
-    </ProductBlock>
-  );
+  return <ProductList />;
 };
 
 export default Product;

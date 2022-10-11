@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
-import Header from "./Header";
-import Slider from "./Slider";
-import Product from "./Product";
-import Store from "./Store";
-import Category from "./Category";
+import Header from "../containers/Header";
+import Slider from "../containers/Slider";
+import Content from "../containers/Content";
+import TodayDeal from "../containers/TodayDeal";
+import Category from "../containers/Category";
 import SideMenu from "../components/header/SideMenu";
-import Infinite from "./Infinite";
+import Product from "../containers/Product";
 
 const MainBlock = styled.div`
   background: white;
@@ -60,10 +60,10 @@ const Main = () => {
       <MainBlock menuOpen={menuOpen}>
         <Header menuOpen={menuOpen} menuClick={menuClick} />
         <Slider />
-        <Store />
-        <Product />
+        <Content />
+        <TodayDeal />
         <Category />
-        <Infinite />
+        <Product />
       </MainBlock>
     </>
   );

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { RiHome2Line, RiStoreLine, RiTruckLine } from "react-icons/ri";
-import SideItem from "./SideItem";
+import SideItem from "./SideMenuItem";
 
 const SideMenuBlock = styled.div`
   display: none;

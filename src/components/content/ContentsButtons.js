@@ -65,20 +65,20 @@ const ButtonItemBlock = styled.div`
   }
 `;
 
-const StoreButtons = () => {
-  const [storeButton, setStoreButton] = useState(null);
+const ContentsButtons = () => {
+  const [contentsButton, setContentsButton] = useState(null);
 
   useEffect(() => {
     axios.get("/api").then((res) => {
-      setStoreButton(res.data.shortcuts);
+      setContentsButton(res.data.shortcuts);
     });
   }, []);
 
   return (
     <StoreBlock>
       <StoreButtonBlock>
-        {storeButton &&
-          storeButton.map(({ id, image_url, label, badge_text }) => (
+        {contentsButton &&
+          contentsButton.map(({ id, image_url, label, badge_text }) => (
             <ButtonItemBlock key={id}>
               <img src={image_url} alt={label} />
               <span>{label}</span>
@@ -89,4 +89,4 @@ const StoreButtons = () => {
     </StoreBlock>
   );
 };
-export default StoreButtons;
+export default ContentsButtons;

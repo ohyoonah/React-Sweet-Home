@@ -1,10 +1,7 @@
-import styled from "styled-components";
-import CategoryButton from "../components/categories/CategoryButton";
+import CategoryButtons from "../components/categories/CategoryButtons";
 
 const Category = () => {
-  return (
-    <CategoryButton />
-  )
+  return <CategoryButtons />;
 };
 
 export default Category;

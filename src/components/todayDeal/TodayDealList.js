@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import DealItem from "./DealItem";
+import TodayDealItem from "./TodayDealItem";
 import axios from "axios";
 
 const TodayDealBlock = styled.div`
@@ -53,12 +53,12 @@ const TodayDealBlock = styled.div`
   }
 `;
 
-const TodayDeal = () => {
-  const [deal, setDeal] = useState(null);
+const TodayDealList = () => {
+  const [todayDeal, setTodayDeal] = useState(null);
 
   useEffect(() => {
     axios.get("/api").then((res) => {
-      setDeal(res.data.today_deal.today_deals);
+      setTodayDeal(res.data.today_deal.today_deals);
     });
   }, []);
 
@@ -68,10 +68,10 @@ const TodayDeal = () => {
         <h2>오늘의딜</h2>
         <span>더보기</span>
       </div>
-      {deal && (
+      {todayDeal && (
         <div className="items">
-          {deal.map((item, index) => (
-            <DealItem key={index} item={item} />
+          {todayDeal.map((item, index) => (
+            <TodayDealItem key={index} item={item} />
           ))}
         </div>
       )}
@@ -80,4 +80,4 @@ const TodayDeal = () => {
   );
 };
 
-export default TodayDeal;
+export default TodayDealList;

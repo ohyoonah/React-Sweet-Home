@@ -96,7 +96,7 @@ const ItemBlock = styled.div`
   }
 `;
 
-const DealItem = ({ item }) => {
+const TodayDealItem = ({ item }) => {
   const [check, setCheck] = useState(false);
   const { title, production, end_at } = item;
   const discount = Math.floor(
@@ -149,4 +149,4 @@ const DealItem = ({ item }) => {
   );
 };
 
-export default DealItem;
+export default TodayDealItem;

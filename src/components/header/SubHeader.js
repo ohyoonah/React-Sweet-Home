@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import SubCategory from "./SubCategory";
+import SubCategory from "./SubHeaderCategory";
 
 const SubHeadBlock = styled.div`
   width: 100%;

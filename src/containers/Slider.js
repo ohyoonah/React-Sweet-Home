@@ -4,7 +4,7 @@ import SliderButton from "../components/slide/SliderButton";
 
 const SliderBlock = styled.div`
   width: 100%;
-`
+`;
 
 const Slider = () => {
   return (
@@ -12,7 +12,7 @@ const Slider = () => {
       <ImageSlider />
       <SliderButton />
     </SliderBlock>
-  )
-}
+  );
+};
 
 export default Slider;

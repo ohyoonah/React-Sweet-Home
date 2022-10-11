@@ -83,7 +83,7 @@ const ItemBlock = styled.div`
   }
 `;
 
-const InfiniteItem = React.forwardRef(({ item }, ref) => {
+const ProductItem = React.forwardRef(({ item }, ref) => {
   const [check, setCheck] = useState(false);
   const {
     image_url,
@@ -147,4 +147,4 @@ const InfiniteItem = React.forwardRef(({ item }, ref) => {
   );
 });
 
-export default InfiniteItem;
+export default ProductItem;

@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { useRef, useCallback } from "react";
 import { useInfiniteQuery } from "react-query";
 import axios from "axios";
-import InfiniteItem from "./InfiniteItem";
+import ProductItem from "./ProductItem";
 
-const InfiniteBlock = styled.div`
+const ProductListBlock = styled.div`
   padding: 0 4rem;
   max-width: 1256px;
   margin: 5rem auto;
@@ -48,7 +48,7 @@ const SelectBlock = styled.select`
   width: 100px;
 `;
 
-const InfiniteLoad = () => {
+const ProductList = () => {
   const getItemPage = async (page = 1, options = {}) => {
     const res = await axios.get(
       `/store/category.json?v=2&order=popular&page=${page}&per=24`,
@@ -91,14 +91,14 @@ const InfiniteLoad = () => {
   const content = data?.pages.map((pg) => {
     return pg.map((item, index) => {
       if (pg.length === index + 1) {
-        return <InfiniteItem ref={lastItemRef} key={index} item={item} />;
+        return <ProductItem ref={lastItemRef} key={index} item={item} />;
       }
-      return <InfiniteItem key={index} item={item} />;
+      return <ProductItem key={index} item={item} />;
     });
   });
 
   return (
-    <InfiniteBlock>
+    <ProductListBlock>
       <div className="title">
         <h2>인기상품</h2>
         <SelectBlock defaultValue="2">
@@ -129,8 +129,8 @@ const InfiniteLoad = () => {
         {content}
         {isFetchingNextPage && <p>Loading...</p>}
       </div>
-    </InfiniteBlock>
+    </ProductListBlock>
   );
 };
 
-export default InfiniteLoad;
+export default ProductList;

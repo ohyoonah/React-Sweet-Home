@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 import { useState, useEffect } from "react";
 import { HiOutlinePlus } from "react-icons/hi";
+import {
+  IoIosArrowDropleftCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
 import axios from "axios";
 import Slider from "react-slick";
 
@@ -93,18 +97,26 @@ const SliderBlock = styled(Slider)`
   position: relative;
   .slick-arrow {
     width: 40px;
-    height: 40px;
-    background: black;
+    height: 100%;
+    opacity: 0.3;
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    background: white;
+    &:hover {
+      color: var(--dark-gray);
+    }
   }
   .slick-next {
-    position: absolute;
-    bottom: 0;
-    right: -10px;
+    right: 55px;
   }
   .slick-prev {
-    position: absolute;
-    bottom: 0;
-    left: -10px;
+    left: 55px;
+  }
+  svg {
+    color: var(--dark-gray);
+    width: 40px;
+    height: 40px;
   }
 `;
 
@@ -134,7 +146,9 @@ const CategoryButton = () => {
     infinite: false,
     slidesToScroll: 5,
     slidesToShow: 10,
-    arrow: true,
+    arrows: true,
+    nextArrow: <IoIosArrowDroprightCircle />,
+    prevArrow: <IoIosArrowDropleftCircle />,
     speed: 500,
     draggable: false,
   };

@@ -30,31 +30,30 @@ const Overlay = styled.div`
 
 const Main = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const ref = useRef();
+  const ref = useRef(null);
 
   const menuClick = () => {
     setMenuOpen(true);
   };
 
-  const onCloseMenu = (e) => {
-    if (menuOpen && ref.current.contains(e.target)) {
-      setMenuOpen(false);
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener("mousedown", onCloseMenu);
-    return () => {
-      window.removeEventListener("mousedown", onCloseMenu);
+    const onClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
     };
-  }, []);
+    document.addEventListener("mousedown", onClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+    };
+  }, [ref]);
 
   return (
     <>
       {menuOpen && (
         <>
-          <SideMenu menuOpen={menuOpen} menuClick={menuClick} />
-          <Overlay ref={ref} />
+          <SideMenu ref={ref} menuOpen={menuOpen} menuClick={menuClick} />
+          <Overlay />
         </>
       )}
       <MainBlock menuOpen={menuOpen}>

@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { RiHome2Line, RiStoreLine, RiTruckLine } from "react-icons/ri";
@@ -139,9 +140,9 @@ const data = [
   },
 ];
 
-const SideMenu = ({ menuOpen }) => {
+const SideMenu = forwardRef(({ menuOpen }, ref) => {
   return (
-    <SideMenuBlock menuOpen={menuOpen}>
+    <SideMenuBlock ref={ref} menuOpen={menuOpen}>
       <div className="top-section">
         <div className="logo-buttons">
           <Link to="/" className="logo">
@@ -185,6 +186,6 @@ const SideMenu = ({ menuOpen }) => {
       </div>
     </SideMenuBlock>
   );
-};
+});
 
 export default SideMenu;

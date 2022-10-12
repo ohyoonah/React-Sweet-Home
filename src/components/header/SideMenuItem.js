@@ -51,13 +51,13 @@ const SideItem = ({ item }) => {
 
   if (item.list) {
     return (
-      <SideItemBlock active={active}>
+      <SideItemBlock active={active ? 1 : 0}>
         <div className="sub-title" onClick={() => setActive(!active)}>
           {item.icon}
           <span>{item.title}</span>
-          <RiArrowDownSLine active={active} />
+          <RiArrowDownSLine active={active ? 1 : 0} />
         </div>
-        <div className="sub-contents" active={active}>
+        <div className="sub-contents" active={active ? 1 : 0}>
           <div>
             {item.list.map((li, index) => (
               <SideItem item={li} key={index} />
@@ -67,7 +67,7 @@ const SideItem = ({ item }) => {
       </SideItemBlock>
     );
   } else {
-    return <SideItemBlock active={active}>{item.title}</SideItemBlock>;
+    return <SideItemBlock active={active ? 1 : 0}>{item.title}</SideItemBlock>;
   }
 };
 

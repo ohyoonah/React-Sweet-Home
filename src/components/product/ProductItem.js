@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import { useState, forwardRef } from "react";
 import { BsBookmarkFill } from "react-icons/bs";
 
 const ContentsBlock = styled.div`
@@ -83,7 +83,7 @@ const ItemBlock = styled.div`
   }
 `;
 
-const ProductItem = React.forwardRef(({ item }, ref) => {
+const ProductItem = forwardRef(({ item }, ref) => {
   const [check, setCheck] = useState(false);
   const {
     image_url,

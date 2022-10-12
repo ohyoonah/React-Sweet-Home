@@ -10,6 +10,7 @@ const MainHeadBlock = styled.div`
   border-bottom: 1px solid var(--light-gray);
   @media screen and (max-width: 768px) {
     ${(props) => props.moveScroll && `display: none;`}
+    ${(props) => props.menuOpen && `display: fixed;`}
   }
 `;
 
@@ -176,7 +177,7 @@ const NavLinkStyle = styled(NavLink)`
   }
 `;
 
-const MainHeader = ({ menuClick }) => {
+const MainHeader = ({ menuClick, menuOpen }) => {
   const [moveScroll, setMoveScroll] = useState(false);
 
   const handleScroll = (e) => {
@@ -194,7 +195,7 @@ const MainHeader = ({ menuClick }) => {
   }, []);
 
   return (
-    <MainHeadBlock moveScroll={moveScroll}>
+    <MainHeadBlock moveScroll={moveScroll} menuOpen={menuOpen}>
       <HeaderContentsBlock>
         <AiOutlineMenu className="menu-icon" onClick={() => menuClick()} />
         <Link to="/" className="logo">

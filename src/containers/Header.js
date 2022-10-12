@@ -27,7 +27,7 @@ const Header = ({ menuClick, menuOpen }) => {
   return (
     <HeaderBlock>
       <Banner className={scrollHeight < 50 ? "visible" : "hidden"} />
-      <MainHeader menuClick={menuClick} />
+      <MainHeader menuClick={menuClick} menuOpen={menuOpen} />
       <SubHeader menuOpen={menuOpen} />
     </HeaderBlock>
   );

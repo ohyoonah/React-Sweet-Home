@@ -49,10 +49,9 @@ const SelectBlock = styled.select`
 `;
 
 const ProductList = () => {
-  const getItemPage = async (page = 1, options = {}) => {
+  const getItemPage = async (pageParam = 1) => {
     const res = await axios.get(
-      `/store/category.json?v=2&order=popular&page=${page}&per=24`,
-      options
+      `/store/category.json?v=2&order=popular&page=${pageParam}&per=24`
     );
     return res.data.selected_products;
   };
@@ -64,11 +63,15 @@ const ProductList = () => {
     data,
     status,
     error,
-  } = useInfiniteQuery("/items", ({ page = 1 }) => getItemPage(page), {
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.length ? allPages.length + 1 : undefined;
-    },
-  });
+  } = useInfiniteQuery(
+    "/items",
+    ({ pageParam = 1 }) => getItemPage(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length ? allPages.length + 1 : undefined;
+      },
+    }
+  );
 
   const intObserver = useRef();
   const lastItemRef = useCallback(

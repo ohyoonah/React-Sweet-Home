@@ -2,7 +2,14 @@
 
 오늘의집 스토어 페이지 클론 프로젝트 입니다.
 
-🔗 [블로그 기술 정리](https://ohyoonah.github.io/project/)
+<br>
+
+![시연](test_1.gif)
+![시연](test_2.gif)
+
+<br>
+
+🔗 [블로그 기술 정리](https://ohyoonah.github.io/project/2022-10-16-ohouse_clone/)
 
 🔗 [사이트 시연 영상 (종합본)](https://youtu.be/wt0X9cHh7Ms)
 

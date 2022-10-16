@@ -57,9 +57,13 @@ const TodayDealList = () => {
   const [todayDeal, setTodayDeal] = useState(null);
 
   useEffect(() => {
-    axios.get("/api").then((res) => {
-      setTodayDeal(res.data.today_deal.today_deals);
-    });
+    const getData = async () => {
+      const {
+        data: { today_deal },
+      } = await axios.get("/api");
+      setTodayDeal(today_deal.today_deals);
+    };
+    getData();
   }, []);
 
   return (

@@ -131,7 +131,7 @@ const CategoryButton = () => {
   }, []);
 
   useEffect(() => {
-    axios.get("/api").then((res) => {
+    axios.get("/api/getItemApi").then((res) => {
       setCategory(res.data.categories);
     });
   }, []);

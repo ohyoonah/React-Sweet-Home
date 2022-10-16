@@ -60,7 +60,7 @@ const TodayDealList = () => {
     const getData = async () => {
       const {
         data: { today_deal },
-      } = await axios.get("/api");
+      } = await axios.get("/api/getItemApi");
       setTodayDeal(today_deal.today_deals);
     };
     getData();

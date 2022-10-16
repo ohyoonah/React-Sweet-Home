@@ -69,7 +69,7 @@ const ContentsButtons = () => {
   const [contentsButton, setContentsButton] = useState(null);
 
   useEffect(() => {
-    axios.get("/api").then((res) => {
+    axios.get("/api/getItemApi.js").then((res) => {
       setContentsButton(res.data.shortcuts);
     });
   }, []);

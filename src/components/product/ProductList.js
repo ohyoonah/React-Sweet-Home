@@ -51,7 +51,7 @@ const SelectBlock = styled.select`
 const ProductList = () => {
   const getItemPage = async (pageParam = 1) => {
     const res = await axios.get(
-      `/store/category.json?v=2&order=popular&page=${pageParam}&per=24`
+      `api/getStoreApi/category.json?v=2&order=popular&page=${pageParam}&per=24`
     );
     return res.data.selected_products;
   };

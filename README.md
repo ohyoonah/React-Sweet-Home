@@ -12,11 +12,6 @@
 
 <br>
 
-![시연](/test-1.gif)
-![시연](/test-2.gif)
-
-<br>
-
 ## 📅 개발 기간
 
 **2022.09.23 ~ 2022.10.12**
@@ -27,7 +22,6 @@
 
 ```
 npm install --global yarn
-cd front
 yarn
 yarn start
 ```

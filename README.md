@@ -2,10 +2,14 @@
 
 오늘의집 스토어 페이지 클론 프로젝트 입니다.
 
+기존 `Vanilla JS`로 제작했던 사이트를, 기능 추가 및 UI 정리를 통해 완성도 있는 프로젝트로 발전시키고자 `React`로 다시 제작했습니다.
+
 <br>
 
-![시연](test_1.gif)
-![시연](test_2.gif)
+<p align="center">
+  <img src="/test_1.gif" width="700" />
+  <img src="/test_2.gif" width="700" />
+</p>
 
 <br>
 

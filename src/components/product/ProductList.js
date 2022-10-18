@@ -52,8 +52,7 @@ const ProductList = () => {
   const getItemPage = async (pageParam = 1) => {
     const { data } = await axios.get(
       // `store/category.json?v=2&order=popular&page=${pageParam}&per=24`
-      `/api/getStoreApi`,
-      { pageParam }
+      `/api/getStoreApi/category.json?v=2&order=popular&page=${pageParam}&per=24`
     );
     return data.selected_products;
   };

@@ -43,6 +43,7 @@ yarn start
 
 - `axios`로 외부 `api`와의 연동
 - `proxy` 서버로 `cors` 관리
+- `Firebase`에서 이미지 슬라이더 데이터 관리
 - `react-query`, `intersection Observer`를 이용한 무한스크롤 기능
 - `styled-components`로 반응형 사이트 제작
 
@@ -50,7 +51,7 @@ yarn start
 
 ## 🛠 기술 스택
 
-- React, Javascript, Styled-Components
+- React, Javascript, Styled-Components, Firebase
 
 <br>
 
@@ -104,6 +105,7 @@ yarn start
 ## 💡 컴포넌트 구조
 
 - **`setupProxy`**: `cors` 문제 해결을 위해 `proxy` 서버 설정
+- **`Firebase`**: `Firebase` `db` 연동 설정
 
 ✅ **`header`**
 

@@ -2,20 +2,13 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { imagesData } from "./imagesData";
 import { useState, useEffect } from "react";
+import { db } from "../../Firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const SliderBlock = styled(Slider)`
   text-align: center;
   overflow-x: hidden;
-  .slick-dots {
-    position: absolute;
-    bottom: 2rem;
-    color: white;
-    @media only screen and (max-width: 1024px) {
-      bottom: 1rem;
-    }
-  }
 `;
 
 const ImageBlock = styled.img`
@@ -32,6 +25,16 @@ const ImageBlock = styled.img`
 
 const ImageSlider = () => {
   const [width, setWidth] = useState(window.innerWidth < 768 ? true : false);
+  const [image, setImage] = useState([]);
+  const collectionRef = collection(db, "image_slider");
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getDocs(collectionRef);
+      setImage(data.docs.map((doc) => ({ ...doc.data() })));
+    };
+    getData();
+  }, [collectionRef]);
 
   const screenChange = (e) => {
     const matches = e.matches;
@@ -45,7 +48,7 @@ const ImageSlider = () => {
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -58,13 +61,13 @@ const ImageSlider = () => {
     <div>
       {width ? (
         <SliderBlock {...settings}>
-          {imagesData.map(({ id, name, image2 }) => (
+          {image.map(({ id, name, image2 }) => (
             <ImageBlock key={id} src={image2} alt={name} />
           ))}
         </SliderBlock>
       ) : (
         <SliderBlock {...settings}>
-          {imagesData.map(({ id, name, image }) => (
+          {image.map(({ id, name, image }) => (
             <ImageBlock key={id} src={image} alt={name} />
           ))}
         </SliderBlock>

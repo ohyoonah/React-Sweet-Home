@@ -46,8 +46,6 @@ const ImageSlider = () => {
     getData();
   }, []);
 
-  console.log(images);
-
   const screenChange = (e) => {
     const matches = e.matches;
     setWidth(matches);

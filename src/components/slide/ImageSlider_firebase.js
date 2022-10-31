@@ -24,7 +24,7 @@ const ImageBlock = styled.img`
 `;
 
 const ImageSlider = () => {
-  const [width, setWidth] = useState(window.innerWidth < 768 ? true : false);
+  const [width, setWidth] = useState(window.innerWidth <= 768 ? true : false);
   const [image, setImage] = useState([]);
   const collectionRef = collection(db, "image_slider");
 

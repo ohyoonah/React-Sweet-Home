@@ -64,15 +64,11 @@ const ProductList = () => {
     data,
     status,
     error,
-  } = useInfiniteQuery(
-    "/items",
-    ({ pageParam = 1 }) => getItemPage(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.length ? allPages.length + 1 : undefined;
-      },
-    }
-  );
+  } = useInfiniteQuery("items", ({ pageParam = 1 }) => getItemPage(pageParam), {
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length ? allPages.length + 1 : undefined;
+    },
+  });
 
   const intObserver = useRef();
   const lastItemRef = useCallback(

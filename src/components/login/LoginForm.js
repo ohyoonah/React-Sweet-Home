@@ -1,16 +1,15 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const LoginFormBlock = styled.form`
   width: 300px;
-  /* margin: 0 auto; */
   display: flex;
   flex-direction: column;
   letter-spacing: -1px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform:translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
   p {
     text-align: center;
@@ -25,24 +24,23 @@ const LoginFormBlock = styled.form`
       letter-spacing: 0;
     }
   }
-`
+`;
 
 const LogoBlock = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 5rem; */
   img {
     width: 50px;
     border-radius: 8px;
     margin-right: 0.7rem;
   }
   span {
-    font-family: 'Jal_Onuel';
+    font-family: "Jal_Onuel";
     font-size: 2rem;
     letter-spacing: -3px;
   }
-`
+`;
 
 const LoginBlock = styled.div`
   display: flex;
@@ -92,7 +90,7 @@ const LoginBlock = styled.div`
       margin-right: 1rem;
     }
   }
-`
+`;
 
 const SocialBlock = styled.div`
   margin: 0.8rem auto;
@@ -113,13 +111,13 @@ const SocialBlock = styled.div`
       cursor: pointer;
     }
   }
-`
+`;
 
 const LoginForm = () => {
   return (
     <LoginFormBlock>
       <LogoBlock to="/">
-        <img src='img/logo.png' alt="logo" />
+        <img src="img/logo.png" alt="logo" />
         <span>오늘의집</span>
       </LogoBlock>
       <LoginBlock>
@@ -142,7 +140,7 @@ const LoginForm = () => {
       <p>로그인에 문제가 있으신가요?</p>
       <p>비회원 주문 조회하기</p>
     </LoginFormBlock>
-  )
-}
+  );
+};
 
 export default LoginForm;

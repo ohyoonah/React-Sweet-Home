@@ -7,8 +7,8 @@
 <br>
 
 <p align="center">
-  <img src="/test_1.gif" width="700" />
-  <img src="/test_2.gif" width="700" />
+  <img src="./public/test_1.gif" width="700" />
+  <img src="./public/test_2.gif" width="700" />
 </p>
 
 <br>
